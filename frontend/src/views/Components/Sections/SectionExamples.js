@@ -33,9 +33,7 @@ export default function SectionExamples() {
                   classes.imgFluid
                 }
               />
-              <Button color="primary" size="lg" simple>
-                View profile page
-              </Button>
+              
       </div>
     </div>
   );

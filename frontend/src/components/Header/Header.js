@@ -1,6 +1,7 @@
 import React from "react";
 import styleModule from "./style.module.css"
 import { Link } from "react-scroll";
+import {Link as NavLink}  from "react-router-dom"
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // nodejs library to set properties for components
@@ -55,32 +56,55 @@ export default function Header(props) {
         .classList.remove(classes[changeColorOnScroll.color]);
     }
   };
-  const { color, rightLinks, leftLinks, brand, fixed, absolute } = props;
+  const { color, rightLinks, leftLinks,isMain, fixed, absolute } = props;
   const appBarClasses = classNames({
     [classes.appBar]: true,
     [classes[color]]: color,
     [classes.absolute]: absolute,
     [classes.fixed]: fixed
   });
-  const brandComponent = <Button className={classes.title}><Link><span className={styleModule.title}>KITTY PISSY</span></Link></Button>;
-  const Link1 = <Button className={classes.title}><Link><span className={styleModule.title}>URUNLERIMIZ</span></Link></Button>;
-  const Link2 = <Button className={classes.title}><Link><span className={styleModule.title}>ICERIK</span></Link></Button>;
-  const Link3 = <Button className={classes.title}><Link><span className={styleModule.title}>ILETISIM</span></Link></Button>;
+  const mainLink = <Button className={classes.title}><NavLink to="/"><span className={styleModule.title}>KITTY PISSY</span></NavLink></Button>;
+  const brandComponent = <Button className={classes.title}><Link activeClass="active"
+    to="home"
+    spy={true}
+    smooth={true}
+    offset={50}
+    duration={500}
+  ><span className={styleModule.title}>KITTY PISSY</span></Link></Button>;
+  const Link1 = <Button className={classes.title}><Link activeClass="active"
+  to="shop"
+  spy={true}
+  smooth={true}
+  offset={-50}
+  duration={500}
+  ><span className={styleModule.title}>URUNLERIMIZ</span></Link></Button>;
+  const Link2 = <Button className={classes.title}><Link activeClass="active"
+  to="features"
+  spy={true}
+  smooth={true}
+  offset={-50}
+  duration={500}
+  ><span className={styleModule.title}>ICERIK</span></Link></Button>;
+  const Link3 = <Button className={classes.title}><Link activeClass="active"
+  to="target"
+  spy={true}
+  smooth={true}
+  offset={-50}
+  duration={500}
+  ><span className={styleModule.title}>ILETISIM</span></Link></Button>;
   return (
     <AppBar className={appBarClasses}>
       <Toolbar className={classes.container}>
         <div>
-          {leftLinks !== undefined ? (
-            <Hidden smDown implementation="css">
-              {leftLinks}
-            </Hidden>
+          {!isMain ? (mainLink
           ) : (
               brandComponent
             )}
         </div>
-        <Hidden smDown implementation="css">
+        {isMain ? 
+        (<Hidden smDown implementation="css">
           {Link1} {Link2} {Link3}
-        </Hidden>
+        </Hidden>): (null)}
       </Toolbar>
     </AppBar>
   );

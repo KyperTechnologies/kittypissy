@@ -1,5 +1,7 @@
 import React from "react";
 import styleModule from "./style.module.css"
+import Button from "../../../components/CustomButtons/Button.js";
+import { useHistory } from "react-router";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -23,66 +25,80 @@ import styles from "../../../assets/jss/material-kit-react/views/componentsSecti
 
 const useStyles = makeStyles(styles);
 
-export default function SectionTypography() {
+export default function SectionTypography(props) {
+  const history = useHistory();
   const classes = useStyles();
+
   return (
     <div className={classes.section}>
       <div className={classes.container}>
         <div style={{ paddingLeft: "0px" }} >
-          <h2 className={styleModule.title}>URUNLERIMIZ</h2>
+          <h2 className={styleModule.title}>ÜRÜNLERİMİZ</h2>
         </div>
         <div className={classes.space50} />
         <div id="images">
           <GridContainer>
             <GridItem xs={12} sm={2}>
-              <h4>Rounded Image</h4>
+              <h4>item1</h4>
               <img
                 src={image}
                 alt="..."
-                className={classes.imgRounded + " " + classes.imgFluid}
-              />
-            </GridItem>
-            <GridItem xs={12} sm={2} className={classes.marginLeft}>
-              <h4>Circle Image</h4>
-              <img
-                src={image}
-                alt="..."
-                className={classes.imgRoundedCircle + " " + classes.imgFluid}
-              />
-            </GridItem>
-            <GridItem xs={12} sm={2} className={classes.marginLeft}>
-              <h4>Rounded Raised</h4>
-              <img
-                src={image}
-                alt="..."
-                className={
-                  classes.imgRaised +
+                className={classes.imgRaised +
                   " " +
                   classes.imgRounded +
                   " " +
-                  classes.imgFluid
-                }
+                  classes.imgFluid}
               />
             </GridItem>
             <GridItem xs={12} sm={2} className={classes.marginLeft}>
-              <h4>Circle Raised</h4>
+              <h4>item2</h4>
               <img
                 src={image}
                 alt="..."
-                className={
-                  classes.imgRaised +
+                className={classes.imgRaised +
                   " " +
-                  classes.imgRoundedCircle +
+                  classes.imgRounded +
                   " " +
-                  classes.imgFluid
-                }
+                  classes.imgFluid}
+              />
+            </GridItem>
+            <GridItem xs={12} sm={2} className={classes.marginLeft}>
+              <h4>item3</h4>
+              <img
+                src={image}
+                alt="..."
+                className={classes.imgRaised +
+                  " " +
+                  classes.imgRounded +
+                  " " +
+                  classes.imgFluid}
+              />
+            </GridItem>
+            <GridItem xs={12} sm={2} className={classes.marginLeft}>
+              <h4>item4</h4>
+              <img
+                src={image}
+                alt="..."
+                className={classes.imgRaised +
+                  " " +
+                  classes.imgRounded +
+                  " " +
+                  classes.imgFluid}
               />
             </GridItem>
           </GridContainer>
           <GridContainer />
+          <div className={classes.space50} />
+          <Button color="github" size="lg" onClick={() => {
+            history.push({
+              pathname:  "/urunler"
+           });
+          }} round>
+            Daha Fazlası İçin Tıklayın
+              </Button>
         </div>
         <div className={classes.space50} />
-        <div style={{textAlign: "center"}} >
+        <div style={{ textAlign: "center" }} >
           <div className={styleModule.line}></div>
         </div>
       </div>

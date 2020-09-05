@@ -18,16 +18,20 @@ export default function SectionDownload() {
       <div className={classes.container}>
         <GridContainer className={classes.textCenter} justify="center">
           <GridItem xs={12} sm={12} md={8}>
-            <h2>Do you love this UI Kit?</h2>
-            <h4>
-              Cause if you do, it can be yours for FREE. Hit the buttons below
-              to navigate to our website where you can find the kit. We also
-              have the Bootstrap 4 version on plain HTML. Start a new project or
-              give an old Bootstrap project a new look!
-            </h4>
+            <h2>Neden bu ürünü seçmeliyim?</h2>
+            <p>
+            <br/>Bakterilerden arındırılmış ve bakteri tutmayan anti bakteriyel özelliğe sahip hijyenik ürünler.
+            <br/>Tozmayan ve size rahatsızlık vermeyecek şekilde üretilmiş.
+            <br/>Sıvı emme kapasitesi yüksek kum yapısı ile oluşacak koku ve bakterilere güle güle.
+            <br/>Kenarları eşeleme sırasında kedinizin patilerine zarar vermeyecek türden üretilmiş kum tanecikleri.
+            <br/>Kolay topaklanma özelliği ile tam ekonomik kum çeşitleri.
+            </p>
+            <Button color="github" size="lg" round>
+                Hemen iletişim kurun
+              </Button>
           </GridItem>
           <GridItem xs={12} sm={8} md={6}>
-            <Button
+            {/*<Button
               color="primary"
               size="lg"
               href="https://www.creative-tim.com/product/material-kit-react?ref=mkr-download-section"
@@ -35,6 +39,7 @@ export default function SectionDownload() {
             >
               Free React Download
             </Button>
+
             <Button
               color="primary"
               size="lg"
@@ -42,12 +47,12 @@ export default function SectionDownload() {
               target="_blank"
             >
               Free HTML Downoad
-            </Button>
+            </Button> *  */} 
           </GridItem>
         </GridContainer>
         <br />
         <br />
-        <GridContainer className={classes.textCenter} justify="center">
+        {/*        <GridContainer className={classes.textCenter} justify="center">
           <GridItem xs={12} sm={12} md={8}>
             <h2>Want more?</h2>
             <h4>
@@ -81,8 +86,9 @@ export default function SectionDownload() {
               Material Dashboard PRO
             </Button>
           </GridItem>
-        </GridContainer>
-        <div className={classes.textCenter + " " + classes.sharingArea}>
+        </GridContainer>  */}
+        {/*
+         <div className={classes.textCenter + " " + classes.sharingArea}>
           <GridContainer justify="center">
             <h3>Thank you for supporting us!</h3>
           </GridContainer>
@@ -99,7 +105,8 @@ export default function SectionDownload() {
           <Button color="github">
             <i className={classes.socials + " fab fa-github"} /> Star
           </Button>
-        </div>
+        </div>  */}
+       
       </div>
     </div>
   );

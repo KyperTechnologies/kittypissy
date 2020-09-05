@@ -3,7 +3,8 @@ import ReactDOM from "react-dom";
 import { createBrowserHistory } from "history";
 import { Router, Route, Switch } from "react-router-dom";
 import './App.css';
-import Components from "./views/Components/Components.js";
+import MainPage from "./views/Components/MainPage";
+import ShopPage from "./views/Components/ShopPage";
 
 var hist = createBrowserHistory();
 
@@ -12,8 +13,8 @@ function App() {
     <div className="App">
       <Router history={hist}>
         <Switch>
-          
-          <Route path="/" component={Components} />
+          <Route path="/urunler" component={ShopPage} /> 
+          <Route path="/" component={MainPage} />
         </Switch>
       </Router>
     </div>
