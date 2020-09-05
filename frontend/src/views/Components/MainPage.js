@@ -50,29 +50,31 @@ export default function MainPage(props) {
         }}
         {...rest}
       />
-     <div id="home">
-     <Parallax image={require("../../assets/img/bg4.png")}>
-        <div className={classes.container}>
-          <GridContainer>
-            <GridItem>
-              <div style={{ marginTop: "220px" }} className={classes.brand}>
-                <h1 className={styleModule.title2}>EN IYI <br></br>ARKADASINIZ<br></br> ICIN EN IYISI</h1>
-              </div>
-            </GridItem>
-          </GridContainer>
-        </div>
-      </Parallax>
-     </div>
+      <div id="home">
+        <Parallax image={require("../../assets/img/bg4.png")}>
+          <div className={classes.container}>
+            <GridContainer>
+              <GridItem>
+                <div style={{ marginTop: "220px" }} className={classes.brand}>
+                  <h1 className={styleModule.title2}>EN IYI <br></br>ARKADASINIZ<br></br> ICIN EN IYISI</h1>
+                </div>
+              </GridItem>
+            </GridContainer>
+          </div>
+        </Parallax>
+      </div>
 
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div id="shop">
           <SectionTypography />
         </div>
         <div id="features">
-          <SectionExamples/>
+          <SectionExamples />
+          <SectionDownload />
         </div>
-        <SectionDownload />
-        <SectionContact/>
+        <div id="contact">
+          <SectionContact />
+        </div>
       </div>
       <Footer />
     </div>

@@ -68,30 +68,34 @@ export default function Header(props) {
     to="home"
     spy={true}
     smooth={true}
-    offset={50}
+    offset={-50}
     duration={500}
-  ><span className={styleModule.title}>KITTY PISSY</span></Link></Button>;
+    className={styleModule.title2}
+  ><span>KITTY PISSY</span></Link></Button>;
   const Link1 = <Button className={classes.title}><Link activeClass="active"
   to="shop"
   spy={true}
   smooth={true}
-  offset={-50}
+  offset={-100}
   duration={500}
-  ><span className={styleModule.title}>URUNLERIMIZ</span></Link></Button>;
+  className={styleModule.title}
+  ><span>URUNLERIMIZ</span></Link></Button>;
   const Link2 = <Button className={classes.title}><Link activeClass="active"
   to="features"
   spy={true}
   smooth={true}
-  offset={-50}
+  offset={0}
   duration={500}
-  ><span className={styleModule.title}>ICERIK</span></Link></Button>;
+  className={styleModule.title}
+  ><span>ICERIK</span></Link></Button>;
   const Link3 = <Button className={classes.title}><Link activeClass="active"
-  to="target"
+  to="contact"
   spy={true}
   smooth={true}
-  offset={-50}
+  offset={0}
   duration={500}
-  ><span className={styleModule.title}>ILETISIM</span></Link></Button>;
+  className={styleModule.title}
+  ><span>ILETISIM</span></Link></Button>;
   return (
     <AppBar className={appBarClasses}>
       <Toolbar className={classes.container}>

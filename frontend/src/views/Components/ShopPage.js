@@ -11,6 +11,7 @@ import GridContainer from "../../components/Grid/GridContainer.js";
 import GridItem from "../../components/Grid/GridItem.js";
 import styleModule from "../Components/Sections/style.module.css";
 import { useHistory } from "react-router"
+import Button from "../../components/CustomButtons/Button.js";
 
 const useStyles = makeStyles(styles);
 

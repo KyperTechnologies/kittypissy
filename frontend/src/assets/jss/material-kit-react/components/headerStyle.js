@@ -57,7 +57,7 @@ const headerStyle = {
     fontSize: "18px",
     borderRadius: "3px",
     textTransform: "none",
-    color: "inherit",
+    color: "white",
     padding: "8px 16px",
     letterSpacing: "unset",
     "&:hover,&:focus": {
@@ -121,7 +121,7 @@ const headerStyle = {
     padding: "0.625rem 0",
     marginBottom: "20px",
     color: "#555",
-    backgroundColor: "#fff !important",
+    backgroundColor: "#333333 !important",
     boxShadow:
       "0 4px 18px 0px rgba(0, 0, 0, 0.12), 0 7px 10px -5px rgba(0, 0, 0, 0.15)"
   },
