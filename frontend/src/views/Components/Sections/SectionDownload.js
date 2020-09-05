@@ -6,8 +6,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import GridContainer from "../../../components/Grid/GridContainer.js";
 import GridItem from "../../../components/Grid/GridItem.js";
 import Button from "../../../components/CustomButtons/Button.js";
+import tick from "../../../assets/img/tick.png";
 // core components
 import styles from "../../../assets/jss/material-kit-react/views/componentsSections/downloadStyle.js";
+import styleModule from "./style.module.css"
+import { Link } from "react-scroll";
 
 const useStyles = makeStyles(styles);
 
@@ -17,18 +20,24 @@ export default function SectionDownload() {
     <div className={classes.section}>
       <div className={classes.container}>
         <GridContainer className={classes.textCenter} justify="center">
-          <GridItem xs={12} sm={12} md={8}>
-            <h2>Neden bu ürünü seçmeliyim?</h2>
-            <p>
-            <br/>Bakterilerden arındırılmış ve bakteri tutmayan anti bakteriyel özelliğe sahip hijyenik ürünler.
-            <br/>Tozmayan ve size rahatsızlık vermeyecek şekilde üretilmiş.
-            <br/>Sıvı emme kapasitesi yüksek kum yapısı ile oluşacak koku ve bakterilere güle güle.
-            <br/>Kenarları eşeleme sırasında kedinizin patilerine zarar vermeyecek türden üretilmiş kum tanecikleri.
-            <br/>Kolay topaklanma özelliği ile tam ekonomik kum çeşitleri.
+          <GridItem xs={12} sm={12} md={9}>
+            <h2 className={styleModule.title}>Neden bu ürünü seçmeliyim?</h2>
+            <p className={styleModule.title4} style={{ textAlign: "left", lineHeight: "50px", fontSize: "17px", marginBottom: "50px" }}>
+              <br /><img src={tick} alt="..." style={{ width: "20px", marginRight: "20px", marginBottom: "4px" }}></img>Bakterilerden arındırılmış ve bakteri tutmayan anti bakteriyel özelliğe sahip hijyenik ürünler.
+            <br /><img src={tick} alt="..." style={{ width: "20px", marginRight: "20px", marginBottom: "4px" }}></img>Tozmayan ve size rahatsızlık vermeyecek şekilde üretilmiş.
+            <br /><img src={tick} alt="..." style={{ width: "20px", marginRight: "20px", marginBottom: "4px" }}></img>Sıvı emme kapasitesi yüksek kum yapısı ile oluşacak koku ve bakterilere güle güle.
+            <br /><img src={tick} alt="..." style={{ width: "20px", marginRight: "20px", marginBottom: "4px" }}></img>Kenarları eşeleme sırasında kedinizin patilerine zarar vermeyecek türden üretilmiş kum tanecikleri.
+            <br /><img src={tick} alt="..." style={{ width: "20px", marginRight: "20px", marginBottom: "4px" }}></img>Kolay topaklanma özelliği ile tam ekonomik kum çeşitleri.
             </p>
-            <Button color="github" size="lg" round>
-                Hemen iletişim kurun
-              </Button>
+            <Button color="github" size="lg" round><Link activeClass="active"
+              to="contact"
+              spy={true}
+              smooth={true}
+              offset={0}
+              duration={500}
+            >                Hemen iletişim kurun
+            </Link>
+            </Button>
           </GridItem>
           <GridItem xs={12} sm={8} md={6}>
             {/*<Button
@@ -47,7 +56,7 @@ export default function SectionDownload() {
               target="_blank"
             >
               Free HTML Downoad
-            </Button> *  */} 
+            </Button> *  */}
           </GridItem>
         </GridContainer>
         <br />
@@ -106,7 +115,7 @@ export default function SectionDownload() {
             <i className={classes.socials + " fab fa-github"} /> Star
           </Button>
         </div>  */}
-       
+
       </div>
     </div>
   );

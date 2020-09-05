@@ -33,7 +33,7 @@ export default function SectionTypography(props) {
     <div className={classes.section}>
       <div className={classes.container}>
         <div style={{ paddingLeft: "0px" }} >
-          <h2 className={styleModule.title}>ÜRÜNLERİMİZ</h2>
+          <h2 className={styleModule.title}>URUNLERIMIZ</h2>
         </div>
         <div className={classes.space50} />
         <div id="images">
@@ -88,7 +88,7 @@ export default function SectionTypography(props) {
             </GridItem>
           </GridContainer>
           <GridContainer />
-          <div className={classes.space50} />
+          <div style={{marginBottom: "50px"}}className={classes.space50} />
           <Button color="github" size="lg" onClick={() => {
             history.push({
               pathname:  "/urunler"
