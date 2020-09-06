@@ -1,19 +1,21 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Header from "../../components/Header/Header.js";
 import HeaderLinks from "../../components/Header/HeaderLinks.js";
+import {
+    Form,
+    Alert
+} from 'antd';
+import UserService from '../../service/UserService';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -38,6 +40,15 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn(props) {
     const classes = useStyles();
     const { ...rest } = props;
+    let form = React.createRef();
+    const login = (values) => {
+        console.log(values)
+        const jsonBody = {
+		    "email": values.user.username,
+		    "password": values.user.password
+        }
+        UserService.login(jsonBody);
+    }
 
     return (
         <Container component="main" maxWidth="sm">
@@ -53,59 +64,87 @@ export default function SignIn(props) {
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon />
                 </Avatar>
-                <Typography component="h1" variant="h5">
+                <Typography style={{ marginBottom: "50px" }} component="h1" variant="h5">
                     Giriş Yapınız
-            </Typography>
-                <form className={classes.form} noValidate>
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="email"
-                        label="Email Adresi"
-                        name="email"
-                        autoComplete="email"
-                        autoFocus
-                    />
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="password"
-                        label="Şifre"
-                        type="password"
-                        id="password"
-                        autoComplete="current-password"
-                    />
-                    <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
-                        label="Beni Hatırla"
-                    />
+                </Typography>
+                <Form
+                    layout="vertical"
+                    name="login"
+                    ref={(ref) => {
+                        form = ref;
+                    }}
+                    initialValues={{
+                        remember: true,
+                    }}
+                    onFinish={login}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <Form.Item
+                                name={['user', 'username']}
+                                hasFeedback
+                                rules={[
+                                    {
+                                        required: true,
+                                        message:  (<Alert style={{marginTop: "10px"}} message="Email giriniz" type="error"/>)
+                                    },
+                                    {
+                                        type: "email",
+                                        message: (<Alert style={{marginTop: "10px"}} message="Gecerli bir Email giriniz" type="error"/>)
+                                    }
+                                ]}
+
+                            >
+                                <TextField
+                                    variant="outlined"
+                                    fullWidth
+                                    label="Email Adresi"
+                                    autoFocus
+                                />
+                            </Form.Item>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Form.Item
+                                name={['user', 'password']}
+                                hasFeedback
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: (<Alert style={{marginTop: "10px"}} message="Sifre giriniz" type="error"/>)
+                                    }
+                                ]}
+
+                            >
+                                <TextField
+                                    variant="outlined"
+                                    fullWidth
+                                    label="Şifre"
+                                    type="password"
+                                /></Form.Item>
+                        </Grid>
+                    </Grid>
                     <Button
                         type="submit"
                         fullWidth
                         variant="contained"
-                        color="primary"
+                        color="secondary"
                         className={classes.submit}
                     >
                         Giriş Yap
-              </Button>
-                    <Grid container>
-                        <Grid item xs>
+                        </Button>
+                    <Grid container spacing={0} >
+                        <Grid md={6} style={{textAlign: "left"}}>
                             <Link href="#" variant="body2">
-                                Şifrenizi mi unuttunuz?
-                  </Link>
+                                Sifrenizi mi unuttunuz?
+                             </Link>
                         </Grid>
-                        <Grid item>
-                            <Link href="/uyeol" variant="body2">
-                                {"Hesabınız yok mu? Üye olun"}
+                        <Grid md={6} style={{textAlign: "right"}}>
+                            <Link  href="/uyeol" variant="body2">
+                                {"Hesabiniz yok mu? Uye olun"}
                             </Link>
                         </Grid>
                     </Grid>
-                </form>
-            </div>
-        </Container>
+                </Form>
+            </div >
+        </Container >
     );
 }
