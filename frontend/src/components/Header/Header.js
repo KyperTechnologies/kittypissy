@@ -70,7 +70,7 @@ export default function Header(props) {
     smooth={true}
     offset={-50}
     duration={500}
-    className={styleModule.title2}
+    className={styleModule.title}
   ><span>KITTY PISSY</span></Link></Button>;
   const Link1 = <Button className={classes.title}><Link activeClass="active"
   to="shop"
@@ -84,7 +84,7 @@ export default function Header(props) {
   to="features"
   spy={true}
   smooth={true}
-  offset={0}
+  offset={-50}
   duration={500}
   className={styleModule.title}
   ><span>ICERIK</span></Link></Button>;
