@@ -2,6 +2,7 @@ import React from "react";
 import styleModule from "./style.module.css"
 import Button from "../../../components/CustomButtons/Button.js";
 import { useHistory } from "react-router";
+import {NavLink}  from "react-bootstrap"
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -88,14 +89,12 @@ export default function SectionTypography(props) {
             </GridItem>
           </GridContainer>
           <GridContainer />
-          <div style={{marginBottom: "50px"}}className={classes.space50} />
-          <Button color="github" size="lg" onClick={() => {
-            history.push({
-              pathname:  "/urunler"
-           });
-          }} round>
-            Daha Fazlası İçin Tıklayın
-              </Button>
+          <div style={{ marginBottom: "50px" }} className={classes.space50} />
+          <Button color="github" size="lg" round
+          ><NavLink
+            href="/urunler"
+            className={styleModule.navLink}
+          >Daha Fazlası İçin Tıklayın</NavLink></Button>
         </div>
         <div className={classes.space50} />
         <div style={{ textAlign: "center" }} >
