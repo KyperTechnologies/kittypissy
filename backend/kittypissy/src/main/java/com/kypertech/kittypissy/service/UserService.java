@@ -20,10 +20,11 @@ public class UserService {
 	public UserInfo getUserByEmailAndPassword(String email, String password) {
 		UserInfo userInfo = getUserByEmail(email);
 		
-		if (new BCryptPasswordEncoder().matches(password, userInfo.getPassword())) {
-			return userInfo;
+		if (userInfo != null) {
+			if (new BCryptPasswordEncoder().matches(password, userInfo.getPassword())) {
+				return userInfo;
+			}
 		}
-		
 		return null;
 	}
 	
