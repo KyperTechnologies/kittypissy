@@ -74,3 +74,11 @@
     margin-top: 90px;
     text-align: left;
   }
+  .navLink {
+      color:white;
+  }
+  .navLink:focus,
+  .navLink:hover,
+  .navLink:active{
+      color:white;
+  }

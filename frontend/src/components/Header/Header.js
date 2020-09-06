@@ -1,7 +1,7 @@
 import React from "react";
 import styleModule from "./style.module.css"
 import { Link } from "react-scroll";
-import {Link as NavLink}  from "react-router-dom"
+import {NavLink}  from "react-bootstrap"
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // nodejs library to set properties for components
@@ -63,7 +63,7 @@ export default function Header(props) {
     [classes.absolute]: absolute,
     [classes.fixed]: fixed
   });
-  const mainLink = <Button className={classes.title}><NavLink to="/"><span className={styleModule.title}>KITTY PISSY</span></NavLink></Button>;
+  const mainLink = <Button className={classes.title}><NavLink href="/"><span className={styleModule.title}>KITTY PISSY</span></NavLink></Button>;
   const brandComponent = <Button className={classes.title}><Link activeClass="active"
     to="home"
     spy={true}
@@ -96,6 +96,16 @@ export default function Header(props) {
   duration={500}
   className={styleModule.title}
   ><span>ILETISIM</span></Link></Button>;
+  const Link4 = <Button className={classes.title}
+  ><NavLink
+  href="/uyeol"
+  className={styleModule.title}
+  ><span>UYE OL</span></NavLink></Button>;
+  const Link5 = <Button className={classes.title}
+  ><NavLink
+  href="/giris"
+  className={styleModule.title}
+  ><span>GIRIS YAP</span></NavLink></Button>;
   return (
     <AppBar className={appBarClasses}>
       <Toolbar className={classes.container}>
@@ -107,8 +117,10 @@ export default function Header(props) {
         </div>
         {isMain ? 
         (<Hidden smDown implementation="css">
-          {Link1} {Link2} {Link3}
-        </Hidden>): (null)}
+          {Link1} {Link2} {Link3} {Link4} {Link5}
+        </Hidden>): (<Hidden smDown implementation="css">
+           {Link4} {Link5}
+        </Hidden>)}
       </Toolbar>
     </AppBar>
   );
@@ -128,7 +140,7 @@ Header.propTypes = {
     "transparent",
     "white",
     "rose",
-    "dark"
+    "dark",
   ]),
   rightLinks: PropTypes.node,
   leftLinks: PropTypes.node,
