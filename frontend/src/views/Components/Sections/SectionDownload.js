@@ -26,7 +26,7 @@ export default function SectionDownload() {
               <br /><img src={tick} alt="..." style={{ width: "20px", marginRight: "20px", marginBottom: "4px" }}></img>Bakterilerden arındırılmış ve bakteri tutmayan anti bakteriyel özelliğe sahip hijyenik ürünler.
             <br /><img src={tick} alt="..." style={{ width: "20px", marginRight: "20px", marginBottom: "4px" }}></img>Tozmayan ve size rahatsızlık vermeyecek şekilde üretilmiş.
             <br /><img src={tick} alt="..." style={{ width: "20px", marginRight: "20px", marginBottom: "4px" }}></img>Sıvı emme kapasitesi yüksek kum yapısı ile oluşacak koku ve bakterilere güle güle.
-            <br /><img src={tick} alt="..." style={{ width: "20px", marginRight: "20px", marginBottom: "4px" }}></img>Kenarları eşeleme sırasında kedinizin patilerine zarar vermeyecek türden üretilmiş kum tanecikleri.
+            <br /><img src={tick} alt="..." style={{ width: "20px", marginRight: "20px", marginBottom: "4px" }}></img>Kenarları,eşeleme sırasında kedinizin patilerine zarar vermeyecek türden üretilmiş kum tanecikleri.
             <br /><img src={tick} alt="..." style={{ width: "20px", marginRight: "20px", marginBottom: "4px" }}></img>Kolay topaklanma özelliği ile tam ekonomik kum çeşitleri.
             </p>
             <Button color="github" size="lg" round><Link activeClass="active"

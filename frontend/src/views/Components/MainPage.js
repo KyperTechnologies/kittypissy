@@ -31,6 +31,7 @@ import SectionDownload from "./Sections/SectionDownload.js";
 
 import styles from "../../assets/jss/material-kit-react/views/components.js";
 import styleModule from "../Components/Sections/style.module.css";
+import SignUp from "./SignUp.js";
 
 const useStyles = makeStyles(styles);
 

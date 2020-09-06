@@ -1,5 +1,4 @@
 import React from "react";
-import { Formik, Form, Field, ErrorMessage } from 'formik';
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -18,7 +17,6 @@ import Button from "../../../components/CustomButtons/Button.js";
 import CustomInput from "../../../components/CustomInput/CustomInput.js";
 
 import styles from "../../../assets/jss/material-kit-react/views/componentsSections/loginStyle.js";
-import { TextField } from "@material-ui/core";
 
 const useStyles = makeStyles(styles);
 
@@ -32,54 +30,97 @@ export default function SectionLogin() {
             <Card>
               <form className={classes.form}>
                 <CardHeader color="primary" className={classes.cardHeader}>
-                  <h4>Mail Gönder</h4>
+                  <h4>Login</h4>
+                  <div className={classes.socialLine}>
+                    <Button
+                      justIcon
+                      href="#pablo"
+                      target="_blank"
+                      color="transparent"
+                      onClick={e => e.preventDefault()}
+                    >
+                      <i className={classes.socialIcons + " fab fa-twitter"} />
+                    </Button>
+                    <Button
+                      justIcon
+                      href="#pablo"
+                      target="_blank"
+                      color="transparent"
+                      onClick={e => e.preventDefault()}
+                    >
+                      <i className={classes.socialIcons + " fab fa-facebook"} />
+                    </Button>
+                    <Button
+                      justIcon
+                      href="#pablo"
+                      target="_blank"
+                      color="transparent"
+                      onClick={e => e.preventDefault()}
+                    >
+                      <i
+                        className={
+                          classes.socialIcons + " fab fa-google-plus-g"
+                        }
+                      />
+                    </Button>
+                  </div>
                 </CardHeader>
                 <p className={classes.divider}>Or Be Classical</p>
                 <CardBody>
-                  <Formik
-                    initialValues={{
-                      name: '',
-                      email: '',
-                      message: '',
+                  <CustomInput
+                    labelText="First Name..."
+                    id="first"
+                    formControlProps={{
+                      fullWidth: true
                     }}
-                    onSubmit={(values, actions) => {
-                      alert(JSON.stringify(values, null, 2));
-                      actions.setSubmitting(false);
+                    inputProps={{
+                      type: "text",
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <People className={classes.inputIconsColor} />
+                        </InputAdornment>
+                      )
                     }}
-                    validate={values => {
-                      const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-                      const errors = {};
-                      if (!values.name) {
-                        errors.name = 'Name Required'
-                      }
-                      if (!values.email || !emailRegex.test(values.email)) { errors.email = 'Valid Email Required' }
-                      if (!values.message) { errors.message = 'Message Required' } return errors;
+                  />
+                  <CustomInput
+                    labelText="Email..."
+                    id="email"
+                    formControlProps={{
+                      fullWidth: true
                     }}
-                  >
-                    {() => (
-                      <Form>
-                        <TextField>
-                          <label htmlFor="name">Name: </label>
-                          <Field name="name" /><br />
-                          <ErrorMessage name="name" /><br />
-                        </TextField>
-                        <TextField>
-                          <label htmlFor="email">Email: </label>
-                          <Field name="email" /><br />
-                          <ErrorMessage name="email" /><br />
-                        </TextField>
-                        <TextField>
-                          <label htmlFor="message">Message: </label>
-                          <Field name="message" component="textarea" /><br />
-                          <ErrorMessage name="message" /><br />
-                        </TextField>
-                        <Button simple color="primary" size="lg">
-                          SUBMIT
-                        </Button>
-                      </Form>
-                    )}
-                  </Formik>
+                    inputProps={{
+                      type: "email",
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <Email className={classes.inputIconsColor} />
+                        </InputAdornment>
+                      )
+                    }}
+                  />
+                  <CustomInput
+                    labelText="Password"
+                    id="pass"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    inputProps={{
+                      type: "password",
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <Icon className={classes.inputIconsColor}>
+                            lock_outline
+                          </Icon>
+                        </InputAdornment>
+                      ),
+                      autoComplete: "off"
+                    }}
+                  />
                 </CardBody>
+                <CardFooter className={classes.cardFooter}>
+                  <Button simple color="primary" size="lg">
+                    Get started
+                  </Button>
+                </CardFooter>
               </form>
             </Card>
           </GridItem>
