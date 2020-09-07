@@ -3,55 +3,60 @@ import config from '../config';
 import { message } from 'antd';
 
 class UserService {
-    static login(body) {
+    static async login(body) {
         console.log(body);
-        Axios.post(`${config.ip}/login`, body)
-            .then(response => {
-                if (response.status === 200) {
-                    const form = new FormData();
-                    form.append("grant_type", "password");
-                    form.append("username", body.email);
-                    form.append("password", body.password);
-                    form.append("role", response.data.role);
-                    Axios.post(`${config.ip}/oauth/token`, form, {
-                        auth: {
-                            username: response.data.oauthUsername,
-                            password: response.data.oauthPassword
-                        }
-                    })
-                        .then(response => {
-                            localStorage.setItem("email", body.email);
-                            localStorage.setItem("password", body.password);
-                            localStorage.setItem("access_token", response.data.access_token);
-                            localStorage.setItem("refresh_token", response.data.refresh_token);
-                            localStorage.setItem("token_type", response.data.token_type);
-                            message.success({
-                                content: "Giris Basarili...",
-                                style: { marginTop: "100px" },
-                            });
-
+        return await Axios
+                .post(`${config.ip}/login`, body)
+                .then(async (response) => {
+                    if (response.status === 200) {
+                        const form = new FormData();
+                        const role = response.data.role;
+                        form.append("grant_type", "password");
+                        form.append("username", body.email);
+                        form.append("password", body.password);
+                        form.append("role", role);
+                        return await Axios.post(`${config.ip}/oauth/token`, form, {
+                            auth: {
+                                username: response.data.oauthUsername,
+                                password: response.data.oauthPassword
+                            }
                         })
-                        .catch(error => {
-                            console.log(error);
-                            message.error({
-                                content: "Giris Basarisiz!",
-                                style: { marginTop: "100px" },
-                            });
-                        })
-                }
-            })
-            .catch(error => {
-                console.log(error.message);
-                message.error({
-                    content: "Giris Basarisiz!",
-                    style: { marginTop: "100px" },
+                            .then(response => {
+                                localStorage.setItem("email", body.email);
+                                localStorage.setItem("password", body.password);
+                                localStorage.setItem("role", role);
+                                localStorage.setItem("access_token", response.data.access_token);
+                                localStorage.setItem("refresh_token", response.data.refresh_token);
+                                localStorage.setItem("token_type", response.data.token_type);
+                                message.success({
+                                    content: "Giris Basarili...",
+                                    style: { marginTop: "100px" },
+                                });
+                                return true;
+                            })
+                            .catch(error => {
+                                console.log(error);
+                                message.error({
+                                    content: "Giris Basarisiz!",
+                                    style: { marginTop: "100px" },
+                                });
+                                return false;
+                            })
+                    }
+                })
+                .catch(error => {
+                    console.log(error.message);
+                    message.error({
+                        content: "Giris Basarisiz!",
+                        style: { marginTop: "100px" },
+                    });
+                    return false;
                 });
-            });
     }
 
-    static register(body){
+    static async register(body){
         console.log(body);
-        Axios.post(`${config.ip}/register`, body)
+        return await Axios.post(`${config.ip}/register`, body)
             .then(response => {
                 if (response.status === 200) {
                     message.success({
@@ -59,12 +64,14 @@ class UserService {
                         style: { marginTop: "100px" },
                     });
                 }
+                return true;
             })
             .catch(error => {
                 message.error({
                     content: "Kayit Basarisiz!",
                     style: { marginTop: "100px" },
                 });
+                return false;
             });
     }
 }

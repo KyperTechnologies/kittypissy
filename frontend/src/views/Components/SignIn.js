@@ -1,4 +1,5 @@
 import React from 'react'
+import { useHistory } from "react-router";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -39,14 +40,21 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn(props) {
     const classes = useStyles();
+    const history = useHistory();
     const { ...rest } = props;
-    const login = (values) => {
+    const login = async (values) => {
         console.log(values)
         const jsonBody = {
 		    "email": values.user.username,
 		    "password": values.user.password
         }
-        UserService.login(jsonBody);
+        const response = await UserService.login(jsonBody);
+        if (response) {
+            history.push({
+                pathname:  "/dashboard",
+                fromLogin: true
+            });
+        }
     }
 
     return (

@@ -6,6 +6,7 @@ import MainPage from "./views/Components/MainPage";
 import ShopPage from "./views/Components/ShopPage";
 import SignUp from "./views/Components/SignUp";
 import SignIn from "./views/Components/SignIn";
+import Admin from "./layouts/Admin";
 
 var hist = createBrowserHistory();
 
@@ -14,6 +15,7 @@ function App() {
     <div className="App">
       <Router history={hist}>
         <Switch>
+          <Route path="/dashboard" component={Admin} />
           <Route path="/giris" exact component={SignIn} />
           <Route path="/uyeol" exact component={SignUp} />
           <Route path="/urunler" exact component={ShopPage} />
