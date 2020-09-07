@@ -31,4 +31,14 @@ public class UserService {
 	public UserInfo addUser(UserInfo userInfo) {
 		return userRepository.save(userInfo);
 	}
+	
+	public UserInfo updateUser(UserInfo userInfo, String email, String name, String surName, String phone, String password, String adress) {
+		userInfo.setEmail(email);
+		userInfo.setName(name);
+		userInfo.setSurName(surName);
+		userInfo.setPassword(new BCryptPasswordEncoder().encode(password));
+		userInfo.setPhone(phone);
+		userInfo.setAdress(adress);
+		return userRepository.save(userInfo);
+	}
 }

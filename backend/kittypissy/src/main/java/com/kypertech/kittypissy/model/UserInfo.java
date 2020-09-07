@@ -1,19 +1,24 @@
 package com.kypertech.kittypissy.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@Table(uniqueConstraints=@UniqueConstraint(columnNames={"id","email"}))
 public class UserInfo {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	
+	@Column(name = "email", length = 200, unique = true)
 	private String email;
 	
 	@JsonIgnore
