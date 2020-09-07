@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn(props) {
     const classes = useStyles();
     const { ...rest } = props;
-    let form = React.createRef();
     const login = (values) => {
         console.log(values)
         const jsonBody = {
@@ -70,9 +69,6 @@ export default function SignIn(props) {
                 <Form
                     layout="vertical"
                     name="login"
-                    ref={(ref) => {
-                        form = ref;
-                    }}
                     initialValues={{
                         remember: true,
                     }}

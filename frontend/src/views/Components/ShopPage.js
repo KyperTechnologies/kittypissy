@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import SectionCarousel from './Sections/SectionCarousel'
 import Header from "../../components/Header/Header.js";
 import HeaderLinks from "../../components/Header/HeaderLinks.js";
@@ -10,13 +10,10 @@ import Parallax from '../../components/Parallax/Parallax';
 import GridContainer from "../../components/Grid/GridContainer.js";
 import GridItem from "../../components/Grid/GridItem.js";
 import styleModule from "../Components/Sections/style.module.css";
-import { useHistory } from "react-router"
-import Button from "../../components/CustomButtons/Button.js";
 
 const useStyles = makeStyles(styles);
 
 export default function ShopPage(props) {
-    const history = useHistory();
     const classes = useStyles();
     const { ...rest } = props;
     return (
