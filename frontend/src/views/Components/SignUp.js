@@ -39,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp(props) {
     const classes = useStyles();
     const { ...rest } = props;
-    let form = React.createRef();
     const register = (values) => {
         const jsonBody = {
             "name": values.user.firstName,
@@ -71,9 +70,6 @@ export default function SignUp(props) {
                 <Form 
                     layout="vertical"
                     name="login"
-                    ref={(ref) => {
-                        form = ref;
-                    }}
                     initialValues={{
                         remember: true,
                     }}
