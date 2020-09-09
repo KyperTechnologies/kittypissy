@@ -44,6 +44,7 @@ const useStyles = makeStyles(styles);
 export default function Admin(props) {
   // styles
   const classes = useStyles();
+  const history = useHistory();
 
   const { ...rest } = props;
   // ref to help us initialize PerfectScrollbar on windows devices
@@ -70,6 +71,12 @@ export default function Admin(props) {
     setMobileOpen(!mobileOpen);
   };
   const getRoute = () => {
+    if (window.location.pathname == "/dashboard/cikis") {
+      localStorage.clear();
+      history.push({
+          pathname:  "/",
+      });
+    }
     return window.location.pathname !== "/dashboard/maps";
   };
   const resizeFunction = () => {

@@ -11,6 +11,7 @@ import Hidden from "@material-ui/core/Hidden";
 import Menu from "@material-ui/icons/Menu";
 // core components
 import styleModule from "./style.module.css";
+import Button from '@material-ui/core/Button';
 
 import styles from "../../assets/jss/material-dashboard-react/components/headerStyle.js";
 
@@ -37,20 +38,10 @@ export default function Header(props) {
       <Toolbar className={classes.container}>
         <div className={classes.flex} >
           {/* Here we create navbar brand, based on route name */}
-          <p className={styleModule.title} style={{marginTop: "20px"}}>
+          <p className={styleModule.title} style={{ marginTop: "20px" }}>
             {makeBrand()}
           </p>
         </div>
-       
-        <Hidden mdUp implementation="css">
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={props.handleDrawerToggle}
-          >
-            <Menu />
-          </IconButton>
-        </Hidden>
       </Toolbar>
     </AppBar>
   );
