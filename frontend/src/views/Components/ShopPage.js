@@ -1,5 +1,5 @@
 import React from 'react'
-import SectionCarousel from './Sections/SectionCarousel'
+import SectionProducts from './Sections/SectionProducts'
 import Header from "../../components/Header/Header.js";
 import HeaderLinks from "../../components/Header/HeaderLinks.js";
 import { makeStyles } from "@material-ui/core/styles";
@@ -44,7 +44,7 @@ export default function ShopPage(props) {
             </div>
             <div className={classNames(classes.main, classes.mainRaised)}>
                 <div id="shop">
-                    <SectionCarousel />
+                    <SectionProducts />
                 </div>
             </div>
             <Footer />
