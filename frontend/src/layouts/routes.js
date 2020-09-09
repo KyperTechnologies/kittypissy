@@ -20,7 +20,7 @@ import Dashboard from "@material-ui/icons/Dashboard";
 import ShoppingCart from "@material-ui/icons/ShoppingCart";
 import Person from "@material-ui/icons/Person";
 // core components/views for Admin layout
-import ProductPage from "../views/Components/Sections/SectionCarousel";
+import ProductPage from "../views/Components/Sections/SectionProducts";
 import UserProfile from "../views/UserProfile/UserProfile";
 import TableList from "../views/TableList/TableList";
 // core components/views for RTL layout

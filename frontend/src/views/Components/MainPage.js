@@ -8,7 +8,7 @@ import GridItem from "../../components/Grid/GridItem.js";
 import Parallax from "../../components/Parallax/Parallax.js";
 import HeaderLinks from "../../components/Header/HeaderLinks.js";
 import SectionContactForm from "./Sections/SectionContactForm";
-import SectionProducts from "./Sections/SectionProducts.js";
+import SectionProductPreview from "./Sections/SectionProductPreview.js";
 import SectionFeatures from "./Sections/SectionFeatures.js";
 import SectionFeatureDetail from "./Sections/SectionFeatureDetail.js";
 import styles from "../../assets/jss/material-kit-react/views/components.js";
@@ -48,7 +48,7 @@ export default function MainPage(props) {
 
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div id="shop">
-          <SectionProducts/>
+          <SectionProductPreview/>
         </div>
         <div id="features">
           <SectionFeatures/>

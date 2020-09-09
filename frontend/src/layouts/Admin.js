@@ -1,5 +1,4 @@
 import React from "react";
-import { useHistory } from "react-router";
 import { Switch, Route, Redirect } from "react-router-dom";
 // creates a beautiful scrollbar
 import PerfectScrollbar from "perfect-scrollbar";
