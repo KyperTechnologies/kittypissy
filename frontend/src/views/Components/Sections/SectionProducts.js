@@ -122,7 +122,7 @@ class SectionProducts extends Component {
                   <GridContainer>
                     <GridItem xs={12} sm={12} md={12}>
                       <Card.Img variant="top" src={`data:image/jpeg;base64,${product.image}`} />
-                      <GridContainer style={{marginTop: "20px"}}>
+                      <GridContainer style={{ marginTop: "20px" }}>
                         <GridItem xs={12} sm={12} md={12} style={{ textAlign: "center" }}>
                           <Form.Item
                             name={['product', 'image']}
@@ -284,6 +284,12 @@ class SectionProducts extends Component {
         <Col md={4}>
           <Card className={styleModule.card}>
             <Card.Img variant="top" src={`data:image/jpeg;base64,${element.image}`} />
+            {role === "Admin" ? (
+              <Card.Body>
+                <Button variant="contained" color="facebook" onClick={() => this.updateProductImage(element.id)}>
+                  Urun Resmi guncelle
+                </Button>
+              </Card.Body>) : (null)}
             <Card.Body>
               <Card.Title className={styleModule.title} style={{ fontSize: "22px" }}>{String(element.name).toUpperCase()}</Card.Title>
             </Card.Body>
@@ -303,9 +309,6 @@ class SectionProducts extends Component {
                     <Button variant="contained" color="twitter" onClick={() => this.updateProductModal(element.id)}>
                       Guncelle
                       </Button>
-                    <Button variant="contained" color="facebook" onClick={() => this.updateProductImage(element.id)}>
-                      Urun Resmi guncelle
-                    </Button>
                   </div>
                 )
               }
