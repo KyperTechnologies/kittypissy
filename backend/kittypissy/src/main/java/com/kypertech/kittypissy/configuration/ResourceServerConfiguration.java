@@ -21,8 +21,11 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 		http.authorizeRequests().antMatchers("/login").permitAll();
 		http.authorizeRequests().antMatchers("/register").permitAll();
 		
-		http.authorizeRequests().antMatchers("/order").hasAnyRole("User");
-		http.authorizeRequests().antMatchers("/getOrders").hasAnyRole("Admin");
+		http.authorizeRequests().antMatchers("/getOrdersByEmail").hasAnyRole("User");
+		http.authorizeRequests().antMatchers("/getAllOrders").hasAnyRole("Admin");
+		http.authorizeRequests().antMatchers("/addProduct").hasAnyRole("Admin");
+		http.authorizeRequests().antMatchers("/deleteProduct").hasAnyRole("Admin");
+		http.authorizeRequests().antMatchers("/updateProduct").hasAnyRole("Admin");
 		
 		http.antMatcher("/**").authorizeRequests().anyRequest().authenticated();
 	}

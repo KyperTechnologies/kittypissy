@@ -31,6 +31,10 @@ public class OrderService {
 		return orderRepository.findByBuyer(user);
 	}
 	
+	public OrderInfo getOrderById(Integer id) {
+		return orderRepository.findById(id);
+	}
+	
 	public OrderInfo orderProduct(UserInfo user, ProductInfo product, String checkoutType) {
 		OrderInfo order = new OrderInfo();
 		order.setBuyer(user);

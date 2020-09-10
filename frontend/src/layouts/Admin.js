@@ -1,22 +1,16 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-// creates a beautiful scrollbar
 import PerfectScrollbar from "perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
-// @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-// core components
-import Navbar from "../components/Navbars/Navbar";
+import UserService from "../service/UserService";
 import Footer from "../components/Footer/Footer";
 import Sidebar from "../components/Sidebar/Sidebar";
 import FixedPlugin from "../components/FixedPlugin/FixedPlugin";
-
 import routes from "./routes.js";
 import adminRoutes from "./adminRoutes.js";
 import { useHistory } from "react-router";
-
 import styles from "../assets/jss/material-dashboard-react/layouts/adminStyle";
-
 import bgImage from "../assets/img/bg4.png";
 
 let ps;
@@ -24,6 +18,24 @@ let ps;
 const switchRoutes = (
   <Switch>
     {routes.map((prop, key) => {
+      if (prop.layout === "/dashboard") {
+        return (
+          <Route
+            path={prop.layout + prop.path}
+            component={prop.component}
+            key={key}
+          />
+        );
+      }
+      return null;
+    })}
+    <Redirect from="/dashboard" to="/dashboard/urunler" />
+  </Switch>
+);
+
+const switchAdminRoutes = (
+  <Switch>
+    {adminRoutes.map((prop, key) => {
       if (prop.layout === "/dashboard") {
         return (
           <Route
@@ -52,6 +64,8 @@ export default function Admin(props) {
   // states and functions
   const [image, setImage] = React.useState(bgImage);
   const [color, setColor] = React.useState("blue");
+  const [role, setRole] = React.useState("User");
+
   const [fixedClasses, setFixedClasses] = React.useState("dropdown show");
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const handleImageClick = image => {
@@ -79,11 +93,15 @@ export default function Admin(props) {
     }
   };
 
-  const role = localStorage.getItem("role");
+  
   // initialize and destroy the PerfectScrollbar plugin
   React.useEffect(() => {
-    
-
+    const getRole = async () => {
+      const email = localStorage.getItem("email");
+      const role = await UserService.getUserRole(email);
+      setRole(role);
+    }
+    getRole();
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(mainPanel.current, {
         suppressScrollX: true,
@@ -99,7 +117,7 @@ export default function Admin(props) {
       }
       window.removeEventListener("resize", resizeFunction);
     };
-  }, [mainPanel]);
+  }, [mainPanel, role]);
   return (
     <div className={classes.wrapper}>
       <Sidebar
@@ -120,11 +138,11 @@ export default function Admin(props) {
         {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
         {getRoute() ? (
           <div className={classes.content}>
-            <div className={classes.container}>{switchRoutes}</div>
+            <div className={classes.container}>{role === "User" ? switchRoutes : switchAdminRoutes}</div>
           </div>
         ) : (
-          history.push("/")
-        )}
+            history.push("/")
+          )}
         {getRoute() ? <Footer /> : null}
         <FixedPlugin
           handleImageClick={handleImageClick}

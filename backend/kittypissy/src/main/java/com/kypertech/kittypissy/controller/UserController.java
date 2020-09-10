@@ -92,4 +92,51 @@ public class UserController {
 		}
 	}
 	
+	@GetMapping("/getUserRole")
+	public Object getUserRole(@RequestHeader HttpHeaders requestHeaders, @RequestParam String userEmail) {
+		UserInfo userInfo = userService.getUserByEmail(userEmail);
+		
+		if (userInfo != null) {
+			String role = userInfo.getRole();
+			return new ResponseEntity<>(role, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Yanlis Email/Sifre", HttpStatus.BAD_REQUEST);
+		}
+	}	
+	
+	@PostMapping("/updateUser")
+	public Object updateUser(@RequestHeader HttpHeaders requestHeaders, @RequestBody Map<String, Object> body) {
+		String email = (String) body.get("email");
+		String name = (String) body.get("name");
+		String surname = (String) body.get("surname");
+		String adress = (String) body.get("adress");
+		String phone = (String) body.get("phone");
+		
+		UserInfo userInfo = userService.getUserByEmail(email);
+		
+		userInfo = userService.updateUser(userInfo, email, name, surname, phone, adress);
+		
+		if (userInfo == null) {
+			return new ResponseEntity<>("Guncelleme Basarisiz", HttpStatus.BAD_REQUEST);
+		}
+		
+		return new ResponseEntity<>("", HttpStatus.OK);
+	}
+	
+	@PostMapping("/updateUserPassword")
+	public Object updateUserPassword(@RequestHeader HttpHeaders requestHeaders, @RequestBody Map<String, Object> body) {
+		String email = (String) body.get("email");
+		String oldPassword = (String) body.get("oldPassword");
+		String newPassword = (String) body.get("newPassword");
+		
+		UserInfo userInfo = userService.getUserByEmail(email);
+		
+		userInfo = userService.updateUserPassword(userInfo, oldPassword, newPassword);
+		
+		if (userInfo == null) {
+			return new ResponseEntity<>("Guncelleme Basarisiz", HttpStatus.BAD_REQUEST);
+		}
+		
+		return new ResponseEntity<>("", HttpStatus.OK);
+	}
 }

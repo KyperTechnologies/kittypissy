@@ -19,9 +19,11 @@
 import Dashboard from "@material-ui/icons/Dashboard";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ShoppingCart from "@material-ui/icons/ShoppingCart";
+import AddBoxIcon from '@material-ui/icons/AddBox';
 import Person from "@material-ui/icons/Person";
 // core components/views for Admin layout
 import ProductPage from "../views/Components/Sections/SectionProducts";
+import AddProductPage from "../views/Components/Sections/SectionAddProduct";
 import UserProfile from "../views/UserProfile/UserProfile";
 import TableList from "../views/TableList/TableList";
 
@@ -33,6 +35,13 @@ const dashboardRoutes = [
     name: "Urunler",
     icon: Dashboard,
     component: ProductPage,
+    layout: "/dashboard"
+  },
+  {
+    path: "/ekle",
+    name: "Urun Ekle",
+    icon: AddBoxIcon,
+    component: AddProductPage,
     layout: "/dashboard"
   },
   {
