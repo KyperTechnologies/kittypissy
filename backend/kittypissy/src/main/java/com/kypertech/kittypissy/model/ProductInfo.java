@@ -25,7 +25,7 @@ public class ProductInfo {
 	
 	private Double price;
 	
-	private String image;
+	private byte[] image;
 
 	public Integer getId() {
 		return id;
@@ -67,11 +67,11 @@ public class ProductInfo {
 		this.price = price;
 	}
 
-	public String getImage() {
+	public byte[] getImage() {
 		return image;
 	}
 
-	public void setImage(String image) {
+	public void setImage(byte[] image) {
 		this.image = image;
 	}
 }

@@ -1,5 +1,9 @@
 package com.kypertech.kittypissy.service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +18,14 @@ public class ProductService {
 	
 	public ProductInfo getProductById(Integer id) {
 		return productRepository.findById(id);
+	}
+	public List<ProductInfo> getAllProducts(){
+		Iterable<ProductInfo> productIter = productRepository.findAll();
+		List<ProductInfo> productList = new ArrayList<ProductInfo>();
+		productIter.forEach(product -> {
+			productList.add(product);
+		});
+		return productList;
 	}
 	
 	public ProductInfo getProductByCode(String code) {
