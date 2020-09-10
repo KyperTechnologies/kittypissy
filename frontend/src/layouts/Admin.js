@@ -13,7 +13,7 @@ import FixedPlugin from "../components/FixedPlugin/FixedPlugin";
 
 import routes from "./routes.js";
 import adminRoutes from "./adminRoutes.js";
-
+import { useHistory } from "react-router";
 
 import styles from "../assets/jss/material-dashboard-react/layouts/adminStyle";
 
