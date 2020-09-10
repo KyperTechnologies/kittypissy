@@ -72,13 +72,7 @@ export default function Admin(props) {
     setMobileOpen(!mobileOpen);
   };
   const getRoute = () => {
-    if (window.location.pathname == "/dashboard/cikis") {
-      localStorage.clear();
-      history.push({
-          pathname:  "/",
-      });
-    }
-    return window.location.pathname !== "/dashboard/maps";
+    return window.location.pathname !== "/dashboard/cikis";
   };
   const resizeFunction = () => {
     if (window.innerWidth >= 960) {
@@ -119,18 +113,18 @@ export default function Admin(props) {
         {...rest}
       />
       <div className={classes.mainPanel} ref={mainPanel}>
-        <Navbar
+        {/*<Navbar
           routes={routes}
           handleDrawerToggle={handleDrawerToggle}
           {...rest}
-        />
+        />*/}
         {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
         {getRoute() ? (
           <div className={classes.content}>
             <div className={classes.container}>{switchRoutes}</div>
           </div>
         ) : (
-          <div className={classes.map}>{switchRoutes}</div>
+          history.push("/")
         )}
         {getRoute() ? <Footer /> : null}
         <FixedPlugin

@@ -9,9 +9,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kypertech.kittypissy.model.UserInfo;
@@ -71,4 +73,23 @@ public class UserController {
 			return new ResponseEntity<>("Yanlis Email/Sifre", HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	@GetMapping("/getUserDetails")
+	public Object getUserDetails(@RequestHeader HttpHeaders requestHeaders, @RequestParam String userEmail) {
+		UserInfo userInfo = userService.getUserByEmail(userEmail);
+		
+		if (userInfo != null) {
+			Map<String, Object> result = new LinkedHashMap<String, Object>();
+			
+			result.put("name", userInfo.getName());
+			result.put("surname", userInfo.getSurName());
+			result.put("email", userInfo.getEmail());
+			result.put("phone", userInfo.getPhone());
+			result.put("adress", userInfo.getAdress());
+			return new ResponseEntity<>(result, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Yanlis Email/Sifre", HttpStatus.BAD_REQUEST);
+		}
+	}
+	
 }

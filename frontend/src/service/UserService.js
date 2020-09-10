@@ -4,7 +4,6 @@ import { message } from 'antd';
 
 class UserService {
     static async login(body) {
-        console.log(body);
         return await Axios
                 .post(`${config.ip}/login`, body)
                 .then(async (response) => {
@@ -55,7 +54,6 @@ class UserService {
     }
 
     static async register(body){
-        console.log(body);
         return await Axios.post(`${config.ip}/register`, body)
             .then(response => {
                 if (response.status === 200) {
@@ -72,6 +70,21 @@ class UserService {
                     style: { marginTop: "100px" },
                 });
                 return false;
+            });
+    }
+
+    static async getUserDetails(userEmail) {
+        const auth = {
+            headers: { Authorization: `Bearer ${localStorage.getItem("access_token")}` }
+        };
+        return Axios.get(`${config.ip}/getUserDetails?userEmail=${userEmail}`, auth)
+            .then(response => {
+                if (response.status === 200) {
+                    return response.data;
+                }
+            })
+            .catch(error => {
+                return error;
             });
     }
 }

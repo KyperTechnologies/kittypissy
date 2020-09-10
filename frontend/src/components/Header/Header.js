@@ -51,8 +51,8 @@ export default function Header(props) {
     [classes.absolute]: absolute,
     [classes.fixed]: fixed
   });
-  const mainLink = <Button className={classes.title}><NavLink href="/"><span className={styleModule.title}>KITTY PISSY</span></NavLink></Button>;
-  const brandComponent = <Button className={classes.title}><Link activeClass="active"
+  const mainLink = <Button><NavLink href="/"><span className={styleModule.title}>KITTY PISSY</span></NavLink></Button>;
+  const brandComponent = <Button><Link activeClass="active"
     to="home"
     spy={true}
     smooth={true}
@@ -60,7 +60,7 @@ export default function Header(props) {
     duration={500}
     className={styleModule.title}
   ><span>KITTY PISSY</span></Link></Button>;
-  const Link1 = <Button className={classes.title}><Link activeClass="active"
+  const Link1 = <Button><Link activeClass="active"
   to="shop"
   spy={true}
   smooth={true}
@@ -68,7 +68,7 @@ export default function Header(props) {
   duration={500}
   className={styleModule.title}
   ><span>URUNLERIMIZ</span></Link></Button>;
-  const Link2 = <Button className={classes.title}><Link activeClass="active"
+  const Link2 = <Button className={styleModule.button}><Link activeClass="active"
   to="features"
   spy={true}
   smooth={true}
@@ -76,7 +76,7 @@ export default function Header(props) {
   duration={500}
   className={styleModule.title}
   ><span>ICERIK</span></Link></Button>;
-  const Link3 = <Button className={classes.title}><Link activeClass="active"
+  const Link3 = <Button><Link activeClass="active"
   to="contact"
   spy={true}
   smooth={true}
@@ -84,15 +84,15 @@ export default function Header(props) {
   duration={500}
   className={styleModule.title}
   ><span>ILETISIM</span></Link></Button>;
-  const Link4 = <Button className={classes.title}
+  const Link4 = <Button
   ><NavLink
   href="/uyeol"
-  className={styleModule.title}
+  className={styleModule.title2}
   ><span>UYE OL</span></NavLink></Button>;
-  const Link5 = <Button className={classes.title}
+  const Link5 = <Button
   ><NavLink
   href="/giris"
-  className={styleModule.title}
+  className={styleModule.title2}
   ><span>GIRIS YAP</span></NavLink></Button>;
   return (
     <AppBar className={appBarClasses}>
