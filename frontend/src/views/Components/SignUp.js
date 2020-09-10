@@ -10,6 +10,10 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Header from "../../components/Header/Header.js";
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import HeaderLinks from "../../components/Header/HeaderLinks.js";
 import {
     Form,
@@ -39,6 +43,22 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp(props) {
     const classes = useStyles();
     const { ...rest } = props;
+    const [values, setValues] = React.useState({
+        amount: '',
+        password: '',
+        weight: '',
+        weightRange: '',
+        showPassword: false,
+      });
+
+    const handleClickShowPassword = () => {
+    setValues({ ...values, showPassword: !values.showPassword });
+    };
+
+    const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+    };
+
     const register = (values) => {
         const jsonBody = {
             "name": values.user.firstName,
@@ -176,7 +196,20 @@ export default function SignUp(props) {
                                     variant="outlined"
                                     fullWidth
                                     label="Şifre"
-                                    type="password"
+                                    type={values.showPassword ? 'text' : 'password'}
+                                    InputProps={{
+                                        endAdornment: (<InputAdornment position="end">
+                                                            <IconButton
+                                                            aria-label="toggle password visibility"
+                                                            onClick={handleClickShowPassword}
+                                                            onMouseDown={handleMouseDownPassword}
+                                                            edge="end"
+                                                            style={{marginRight: "5px"}}
+                                                            >
+                                                            {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                                                            </IconButton>
+                                                        </InputAdornment>),
+                                    }}
                                 />
                             </Form.Item>
 
@@ -207,7 +240,20 @@ export default function SignUp(props) {
                                     variant="outlined"
                                     fullWidth
                                     label="Şifrenizi tekrar giriniz"
-                                    type="password"
+                                    type={values.showPassword ? 'text' : 'password'}
+                                    InputProps={{
+                                        endAdornment: (<InputAdornment position="end">
+                                                            <IconButton
+                                                            aria-label="toggle password visibility"
+                                                            onClick={handleClickShowPassword}
+                                                            onMouseDown={handleMouseDownPassword}
+                                                            edge="end"
+                                                            style={{marginRight: "5px"}}
+                                                            >
+                                                            {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                                                            </IconButton>
+                                                        </InputAdornment>),
+                                    }}
                                 />
                             </Form.Item>
 

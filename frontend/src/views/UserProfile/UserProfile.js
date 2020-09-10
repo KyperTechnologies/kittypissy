@@ -1,178 +1,355 @@
-import React from "react";
-// @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
-import InputLabel from "@material-ui/core/InputLabel";
-// core components
+import React, { Component } from "react";
 import GridItem from "../../components/Grid/GridItem.js";
 import GridContainer from "../../components/Grid/GridContainer.js";
-import CustomInput from "../../components/CustomInput/CustomInput.js";
 import Button from "../../components/CustomButtons/Button.js";
 import Card from "../../components/Card/Card.js";
 import CardHeader from "../../components/Card/CardHeader.js";
-import CardAvatar from "../../components/Card/CardAvatar.js";
 import CardBody from "../../components/Card/CardBody.js";
 import CardFooter from "../../components/Card/CardFooter.js";
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import TextField from '@material-ui/core/TextField';
+import {
+  Form,
+  Alert
+} from 'antd';
+import UserService from "../../service/UserService";
+import styleModule from "./style.module.css";
 
-import avatar from "../../assets/img/faces/marc.jpg";
 
-const styles = {
-  cardCategoryWhite: {
-    color: "rgba(255,255,255,.62)",
-    margin: "0",
-    fontSize: "14px",
-    marginTop: "0",
-    marginBottom: "0"
-  },
-  cardTitleWhite: {
-    color: "#FFFFFF",
-    marginTop: "0px",
-    minHeight: "auto",
-    fontWeight: "300",
-    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    marginBottom: "3px",
-    textDecoration: "none"
+class UserProfile extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showPassword: false,
+      userDetails: {},
+      profileComponent: null
+    };
+    this.getUserDetails = this.getUserDetails.bind(this);
   }
-};
 
-const useStyles = makeStyles(styles);
+  handleClickShowPassword = () => {
+    this.setState({
+      showPassword: !this.state.showPassword,
+    });
+  };
 
-export default function UserProfile() {
-  const classes = useStyles();
-  return (
-    <div>
-      <GridContainer>
-        <GridItem xs={12} sm={12} md={8}>
+  handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+  componentDidMount = async () => {
+    const userEmail = localStorage.getItem("email");
+    const response = await UserService.getUserDetails(userEmail);
+    this.setState({
+      userDetails: response,
+    })
+    this.getUserDetails(response);
+  }
+
+  getUserDetails(data) {
+    const profileComponent = (<GridContainer style={{ justifyContent: "center" }}>
+      <GridItem md={8}>
+        <Form
+          layout="vertical"
+          name="profile"
+          initialValues={{
+            remember: true,
+          }}
+          onFinish={this.profileUpdate}>
           <Card>
             <CardHeader color="primary">
-              <h4 className={classes.cardTitleWhite}>Edit Profile</h4>
-              <p className={classes.cardCategoryWhite}>Complete your profile</p>
+              <h4 className={styleModule.cardTitleWhite}>Profili Duzenle</h4>
+              <p className={this.cardCategoryWhite}>Eksik bilgilerinizi tamamlayabilirsiniz</p>
             </CardHeader>
-            <CardBody>
+            <CardBody style={{ marginTop: "20px" }}>
               <GridContainer>
-                <GridItem xs={12} sm={12} md={5}>
-                  <CustomInput
-                    labelText="Company (disabled)"
-                    id="company-disabled"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      disabled: true
-                    }}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={3}>
-                  <CustomInput
-                    labelText="Username"
-                    id="username"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                  />
+                <GridItem xs={12} sm={12} md={8}>
+                  <Form.Item
+                    name={['user', 'email']}
+                    initialValue={data.email}
+                  >
+                    <TextField
+                      label="Email Adresi"
+                      fullWidth
+                      disabled
+                      defaultValue={data.email}
+                    />
+                  </Form.Item>
                 </GridItem>
                 <GridItem xs={12} sm={12} md={4}>
-                  <CustomInput
-                    labelText="Email address"
-                    id="email-address"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                  />
+                  <Form.Item
+                    name={['user', 'phone']}
+                    initialValue={data.phone}
+                  >
+                    <TextField
+                      label="Telefon No"
+                      fullWidth
+                      defaultValue={data.phone}
+                    />
+                  </Form.Item>
                 </GridItem>
               </GridContainer>
               <GridContainer>
                 <GridItem xs={12} sm={12} md={6}>
-                  <CustomInput
-                    labelText="First Name"
-                    id="first-name"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                  />
+                  <Form.Item
+                    name={['user', 'name']}
+                    initialValue={data.name}
+                  >
+                    <TextField
+                      label="Isim"
+                      id="name"
+                      fullWidth
+                      defaultValue={data.name}
+                    />
+                  </Form.Item>
                 </GridItem>
                 <GridItem xs={12} sm={12} md={6}>
-                  <CustomInput
-                    labelText="Last Name"
-                    id="last-name"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                  />
-                </GridItem>
-              </GridContainer>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={4}>
-                  <CustomInput
-                    labelText="City"
-                    id="city"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={4}>
-                  <CustomInput
-                    labelText="Country"
-                    id="country"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={4}>
-                  <CustomInput
-                    labelText="Postal Code"
-                    id="postal-code"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                  />
+                  <Form.Item
+                    name={['user', 'surname']}
+                    initialValue={data.surname}
+                  >
+                    <TextField
+                      label="Soyisim"
+                      fullWidth
+                      defaultValue={data.surname}
+                    />
+                  </Form.Item>
                 </GridItem>
               </GridContainer>
               <GridContainer>
                 <GridItem xs={12} sm={12} md={12}>
-                  <InputLabel style={{ color: "#AAAAAA" }}>About me</InputLabel>
-                  <CustomInput
-                    labelText="Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo."
-                    id="about-me"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      multiline: true,
-                      rows: 5
-                    }}
-                  />
+                  <Form.Item
+                    name={['user', 'adress']}
+                    initialValue={data.adress}
+                  >
+                    <TextField
+                      label="Adres"
+                      fullWidth
+                      defaultValue={data.adress}
+                      multiline
+                      rows={5}
+                    />
+                  </Form.Item>
                 </GridItem>
               </GridContainer>
             </CardBody>
-            <CardFooter>
-              <Button color="primary">Update Profile</Button>
+            <CardFooter style={{ justifyContent: "center" }}>
+              <Button type="submit" color="github" round>Guncelle</Button>
             </CardFooter>
           </Card>
-        </GridItem>
-        <GridItem xs={12} sm={12} md={4}>
-          <Card profile>
-            <CardAvatar profile>
-              <a href="#pablo" onClick={e => e.preventDefault()}>
-                <img src={avatar} alt="..." />
-              </a>
-            </CardAvatar>
-            <CardBody profile>
-              <h6 className={classes.cardCategory}>CEO / CO-FOUNDER</h6>
-              <h4 className={classes.cardTitle}>Alec Thompson</h4>
-              <p className={classes.description}>
-                Don{"'"}t be scared of the truth because we need to restart the
-                human foundation in truth And I love you like Kanye loves Kanye
-                I love Rick Owens’ bed design but the back is...
-              </p>
-              <Button color="primary" round>
-                Follow
-              </Button>
-            </CardBody>
-          </Card>
-        </GridItem>
-      </GridContainer>
-    </div>
-  );
+        </Form>
+      </GridItem>
+    </GridContainer>);
+    this.setState({
+      profileComponent: profileComponent,
+    });
+  }
+
+  profileUpdate = async (values) => {
+    const userEmail = localStorage.getItem("email");
+    const jsonBody = {
+      "email": userEmail,
+      "name": values.user.name,
+      "surname": values.user.surname,
+      "adress": values.user.adress,
+      "phone": values.user.phone
+    }
+    UserService.updateUser(jsonBody);
+  }
+
+  passwordUpdate = (values) => {
+    const userEmail = localStorage.getItem("email");
+    const jsonBody = {
+      "email": userEmail,
+      "oldPassword": values.user.oldpassword,
+      "newPassword": values.user.password,
+    }
+    UserService.updateUserPassword(jsonBody);
+  }
+
+  render() {
+    return (
+      <div>
+        {this.state.profileComponent}
+        <GridContainer style={{ justifyContent: "center"}}>
+          <GridItem md={8}>
+            <Form
+              layout="vertical"
+              name="profile"
+              initialValues={{
+                remember: true,
+              }}
+              onFinish={this.passwordUpdate}>
+              <Card>
+                <CardHeader color="primary">
+                  <h4 className={styleModule.cardTitleWhite}>Sifre Degistir</h4>
+                </CardHeader>
+                <CardBody style={{ marginTop: "20px" }}>
+                  <GridContainer style={{ justifyContent: "center" }}>
+                    <GridItem xs={12} sm={12} md={8}>
+                      <Form.Item
+                        name={['user', 'oldpassword']}
+                        rules={[
+                          {
+                            required: true,
+                            message: (<Alert style={{ marginTop: "10px" }} message="Lutfen sifre giriniz" type="error" />)
+                          },
+                          () => ({
+                            validator(rule, value, callback) {
+                              if (value && value.length < 8) {
+                                callback(
+                                  (<Alert style={{ marginTop: "10px" }} message="Sifre en az 8 karakter uzunlugunda olmalidir" type="error" />)
+                                );
+                              } else if (
+                                value &&
+                                !(
+                                  /\d/.test(value) &&
+                                  /[a-z]/.test(value) &&
+                                  /[A-Z]/.test(value)
+                                )
+                              ) {
+                                callback(
+                                  (<Alert style={{ marginTop: "10px" }} message="Sifre en az 1 sayi, 1 kucuk harf ve 1 buyuk harf icermelidir" type="error" />)
+                                );
+                              } else {
+                                callback();
+                              }
+                            },
+                          }),
+                        ]}
+                      >
+                        <TextField
+                          fullWidth
+                          label="Eski Şifre"
+                          type={this.state.showPassword ? 'text' : 'password'}
+                          InputProps={{
+                            endAdornment: (<InputAdornment position="end">
+                              <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={this.handleClickShowPassword}
+                                onMouseDown={this.handleMouseDownPassword}
+                                edge="end"
+                                style={{ marginRight: "5px" }}
+                              >
+                                {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
+                              </IconButton>
+                            </InputAdornment>),
+                          }}
+                        />
+                      </Form.Item>
+                    </GridItem>
+                  </GridContainer>
+                  <GridContainer style={{ justifyContent: "center" }}>
+                    <GridItem xs={12} sm={12} md={8}>
+                      <Form.Item
+                        name={['user', 'password']}
+                        rules={[
+                          {
+                            required: true,
+                            message: (<Alert style={{ marginTop: "10px" }} message="Lutfen sifre giriniz" type="error" />)
+                          },
+                          () => ({
+                            validator(rule, value, callback) {
+                              if (value && value.length < 8) {
+                                callback(
+                                  (<Alert style={{ marginTop: "10px" }} message="Sifre en az 8 karakter uzunlugunda olmalidir" type="error" />)
+                                );
+                              } else if (
+                                value &&
+                                !(
+                                  /\d/.test(value) &&
+                                  /[a-z]/.test(value) &&
+                                  /[A-Z]/.test(value)
+                                )
+                              ) {
+                                callback(
+                                  (<Alert style={{ marginTop: "10px" }} message="Sifre en az 1 sayi, 1 kucuk harf ve 1 buyuk harf icermelidir" type="error" />)
+                                );
+                              } else {
+                                callback();
+                              }
+                            },
+                          }),
+                        ]}
+                      >
+                        <TextField
+                          fullWidth
+                          label="Yeni Şifre"
+                          type={this.state.showPassword ? 'text' : 'password'}
+                          InputProps={{
+                            endAdornment: (<InputAdornment position="end">
+                              <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={this.handleClickShowPassword}
+                                onMouseDown={this.handleMouseDownPassword}
+                                edge="end"
+                                style={{ marginRight: "5px" }}
+                              >
+                                {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
+                              </IconButton>
+                            </InputAdornment>),
+                          }}
+                        />
+                      </Form.Item>
+                    </GridItem>
+                  </GridContainer>
+                  <GridContainer style={{ justifyContent: "center" }}>
+                    <GridItem xs={12} sm={12} md={8}>
+                      <Form.Item
+                        name={['user', 'rePassword']}
+                        dependencies={["password"]}
+                        rules={[
+                          {
+                            required: true,
+                            message: (<Alert style={{ marginTop: "10px" }} message="Lutfen sifrenizi tekrar giriniz" type="error" />)
+                          },
+                          ({ getFieldValue }) => ({
+                            validator(rule, value) {
+                              if (!value || getFieldValue(['user', 'password']) === value) {
+                                return Promise.resolve();
+                              }
+                              return Promise.reject(
+                                (<Alert style={{ marginTop: "10px" }} message="Girilen sifreler eslesmiyor, Lutfen tekrar deneyin" type="error" />)
+                              );
+                            },
+                          }),
+                        ]}
+                      >
+                        <TextField
+                          fullWidth
+                          label="Şifrenizi tekrar giriniz"
+                          type={this.state.showPassword ? 'text' : 'password'}
+                          InputProps={{
+                            endAdornment: (<InputAdornment position="end">
+                              <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={this.handleClickShowPassword}
+                                onMouseDown={this.handleMouseDownPassword}
+                                edge="end"
+                                style={{ marginRight: "5px" }}
+                              >
+                                {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
+                              </IconButton>
+                            </InputAdornment>),
+                          }}
+                        />
+                      </Form.Item>
+                    </GridItem>
+                  </GridContainer>
+                </CardBody>
+                <CardFooter style={{ justifyContent: "center" }}>
+                  <Button type="submit" color="github" round>Guncelle</Button>
+                </CardFooter>
+              </Card>
+            </Form>
+          </GridItem>
+        </GridContainer>
+      </div >
+    );
+  }
 }
+
+export default UserProfile;

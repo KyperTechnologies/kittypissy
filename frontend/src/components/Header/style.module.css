@@ -2,13 +2,23 @@
 
 .title{
  font-family:"DINSchrift";
- font-size: 28px;
+ font-size: 26px;
  color: white;
 }
 
+.title2{
+    font-family:"DINSchrift";
+    font-size: 26px;
+    color: white;
+    padding: 0;
+   }
+
 .title:hover,
 .title:focus,
-.title:active {
+.title:active,
+.title2:hover,
+.title2:focus,
+.title2:active {
     color: #fad7a0 !important;
 }
 

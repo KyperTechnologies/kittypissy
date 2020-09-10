@@ -4,7 +4,6 @@ import { message } from 'antd';
 
 class UserService {
     static async login(body) {
-        console.log(body);
         return await Axios
                 .post(`${config.ip}/login`, body)
                 .then(async (response) => {
@@ -55,7 +54,6 @@ class UserService {
     }
 
     static async register(body){
-        console.log(body);
         return await Axios.post(`${config.ip}/register`, body)
             .then(response => {
                 if (response.status === 200) {
@@ -69,6 +67,82 @@ class UserService {
             .catch(error => {
                 message.error({
                     content: "Kayit Basarisiz!",
+                    style: { marginTop: "100px" },
+                });
+                return false;
+            });
+    }
+
+    static async getUserDetails(userEmail) {
+        const auth = {
+            headers: { Authorization: `Bearer ${localStorage.getItem("access_token")}` }
+        };
+        return await Axios.get(`${config.ip}/getUserDetails?userEmail=${userEmail}`, auth)
+            .then(response => {
+                if (response.status === 200) {
+                    return response.data;
+                }
+            })
+            .catch(error => {
+                return error;
+            });
+    }
+
+    static async getUserRole(userEmail) {
+        const auth = {
+            headers: { Authorization: `Bearer ${localStorage.getItem("access_token")}` }
+        };
+        return await Axios.get(`${config.ip}/getUserRole?userEmail=${userEmail}`, auth)
+            .then(response => {
+                if (response.status === 200) {
+                    return response.data;
+                }
+            })
+            .catch(error => {
+                return error;
+            });
+    }
+
+    static async updateUser(body) {
+        const auth = {
+            headers: { Authorization: `Bearer ${localStorage.getItem("access_token")}` }
+        };
+        return await Axios.post(`${config.ip}/updateUser`, body, auth)
+            .then(response => {
+                if (response.status === 200) {
+                    message.success({
+                        content: "Guncelleme Basarili!",
+                        style: { marginTop: "100px" },
+                    });
+                    return true;
+                }
+            })
+            .catch(error => {
+                message.error({
+                    content: "Guncelleme Basarisiz!",
+                    style: { marginTop: "100px" },
+                });
+                return false;
+            });
+    }
+
+    static async updateUserPassword(body) {
+        const auth = {
+            headers: { Authorization: `Bearer ${localStorage.getItem("access_token")}` }
+        };
+        return await Axios.post(`${config.ip}/updateUserPassword`, body, auth)
+            .then(response => {
+                if (response.status === 200) {
+                    message.success({
+                        content: "Guncelleme Basarili!",
+                        style: { marginTop: "100px" },
+                    });
+                    return true;
+                }
+            })
+            .catch(error => {
+                message.error({
+                    content: "Guncelleme Basarisiz!",
                     style: { marginTop: "100px" },
                 });
                 return false;

@@ -1,11 +1,13 @@
 package com.kypertech.kittypissy.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kypertech.kittypissy.model.ProductInfo;
 import com.kypertech.kittypissy.repository.ProductRepository;
@@ -32,8 +34,9 @@ public class ProductService {
 		return productRepository.findByCode(code);
 	}
 	
-	public ProductInfo addProduct(String code, String description, String image, String name, Double price) {
+	public ProductInfo addProduct(String code, String description, MultipartFile file, String name, Double price) throws IOException {
 		ProductInfo product = new ProductInfo();
+		byte[] image = file.getBytes();
 		product.setCode(code);
 		product.setDescription(description);
 		product.setImage(image);
@@ -42,12 +45,17 @@ public class ProductService {
 		return productRepository.save(product);
 	}
 	
-	public ProductInfo updateProduct(String code, String description, String image, String name, Double price) {
-		ProductInfo product = getProductByCode(code);
+	public ProductInfo updateProduct(ProductInfo product, String code, String description, String name, Double price) throws IOException {
 		product.setDescription(description);
-		product.setImage(image);
 		product.setName(name);
 		product.setPrice(price);
+		product.setCode(code);
+		return productRepository.save(product);
+	}
+	
+	public ProductInfo updateProductImage(ProductInfo product, MultipartFile file) throws IOException {
+		byte[] image = file.getBytes();
+		product.setImage(image);
 		return productRepository.save(product);
 	}
 	
@@ -60,6 +68,4 @@ public class ProductService {
 		ProductInfo product = getProductByCode(code);
 		productRepository.delete(product);
 	}
-	
-	
 }
