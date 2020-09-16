@@ -26,7 +26,7 @@ import { UploadOutlined } from '@ant-design/icons';
 class SectionProducts extends Component {
 
   constructor(props) {
-    super(props);
+    super();
     this.state = {
       products: [],
       role: "",
@@ -38,8 +38,11 @@ class SectionProducts extends Component {
     this.createProductList();
   }
 
-  order = (productId) => {
-    console.log(productId);
+  order = (product) => {
+    let cart = localStorage.getItem("cart") === null ? [] : JSON.parse(localStorage.getItem("cart"));
+    cart.push(product);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    this.props.handleCartData(cart);
   }
 
   deleteProduct = async (productId) => {
@@ -288,7 +291,7 @@ class SectionProducts extends Component {
     let row = [];
     productList.forEach(element => {
       column.push(
-        <Col md={3}>
+        <Col md={4}>
           <Card className={styleModule.card}>
             <Card.Img variant="top" src={`data:image/jpeg;base64,${element.image}`} />
             {role === "Admin" ? (
@@ -309,7 +312,7 @@ class SectionProducts extends Component {
                      Detaylar
                      </Button> 
                     </Col>
-                    <Col md={5}><Button variant="contained" color="google" onClick={() => this.order(element.id)}>
+                    <Col md={5}><Button variant="contained" color="google" onClick={() => this.order(element)}>
                      Sepete ekle
                      </Button>
                     </Col></Row>
