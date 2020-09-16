@@ -298,17 +298,22 @@ class SectionProducts extends Component {
                 </Button>
               </Card.Body>) : (null)}
             <Card.Body>
-              <Card.Title className={styleModule.title} style={{ fontSize: "22px" }}>{String(element.name).toUpperCase()}</Card.Title>
+              <Card.Title className={styleModule.title} style={{ fontSize: "18px", textAlign: "left", marginBottom: "-85px" }}>{String(element.name)}</Card.Title>
             </Card.Body>
-            <ListGroup className="list-group-flush">
-              <ListGroupItem className={styleModule.title4} style={{ fontSize: "14px" }}>{element.description}</ListGroupItem>
-              <ListGroupItem className={styleModule.title4} style={{ fontSize: "18px" }}>{element.price} ₺</ListGroupItem>
-            </ListGroup>
+            <Card.Title className="list-group-flush">
+              <ListGroupItem className={styleModule.title4} style={{ fontSize: "35px", textAlign: "left", marginBottom: "-40px" }}>{element.price} ₺</ListGroupItem>
+            </Card.Title>
             <Card.Body>
               {role === "User" ? (
-                <Button variant="contained" color="google" onClick={() => this.order(element.id)}>
-                  Sepete Ekle
-                </Button>) : (
+              <Row><Col md={5}><Button variant="contained" color="transparent" onClick={() => this.order(element.id)}>
+                     Detaylar
+                     </Button> 
+                    </Col>
+                    <Col md={5}><Button variant="contained" color="google" onClick={() => this.order(element.id)}>
+                     Sepete ekle
+                     </Button>
+                    </Col></Row>
+              ) : (
                   <div>
                     <Button variant="contained" color="google" onClick={() => this.deleteProduct(element.id)}>
                       Urunu Sil
@@ -359,7 +364,7 @@ class SectionProducts extends Component {
           <div />
           <div id="images">
             <GridContainer style={{ justifyContent: "center" }}>
-              <GridItem xs={12} sm={12} md={10}>
+              <GridItem xs={12} sm={12} md={11}>
                 <Card className={styleModule.card}>
                   <CardHeader color="primary">
                     <h4 className={styleModule.cardTitleWhite}>Urunler</h4>
