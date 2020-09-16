@@ -94,12 +94,17 @@ public class ProductController {
 		return new ResponseEntity<>("", HttpStatus.OK);	
 	}
 	
-	@DeleteMapping("/deleteProduct")
+	@PostMapping("/deleteProduct")
 	public Object deleteProduct(@RequestHeader HttpHeaders requestHeaders, @RequestParam Integer productId) {
+		boolean isDeleted = false;
 		try {
-			productService.removeProductById(productId);
+			isDeleted = productService.removeProductById(productId);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		
+		if (!isDeleted) {
+			return new ResponseEntity<>("Urun silinemedi", HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>("", HttpStatus.OK);	
 	}

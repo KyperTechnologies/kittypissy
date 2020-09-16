@@ -44,8 +44,15 @@ class SectionProducts extends Component {
 
   deleteProduct = async (productId) => {
     console.log(productId);
-    await ProductService.deleteProduct(productId);
-    window.location.reload();
+    await ProductService.deleteProduct(productId)
+      .then((response) => {
+        if (response) {
+          this.setState({
+            product: response,
+          });
+          window.location.reload();
+        }
+      });
   }
 
   updateImage = async (values) => {
@@ -59,7 +66,7 @@ class SectionProducts extends Component {
           product: response,
         });
         window.location.reload();
-      })
+      });
   }
 
   updateProduct = async (values) => {
@@ -281,7 +288,7 @@ class SectionProducts extends Component {
     let row = [];
     productList.forEach(element => {
       column.push(
-        <Col md={4}>
+        <Col md={3}>
           <Card className={styleModule.card}>
             <Card.Img variant="top" src={`data:image/jpeg;base64,${element.image}`} />
             {role === "Admin" ? (

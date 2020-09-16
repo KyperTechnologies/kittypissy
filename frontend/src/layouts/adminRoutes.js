@@ -25,7 +25,7 @@ import Person from "@material-ui/icons/Person";
 import ProductPage from "../views/Components/Sections/SectionProducts";
 import AddProductPage from "../views/Components/Sections/SectionAddProduct";
 import UserProfile from "../views/UserProfile/UserProfile";
-import TableList from "../views/TableList/TableList";
+import Order from "../views/TableList/Order";
 
 // core components/views for RTL layout
 
@@ -55,7 +55,7 @@ const dashboardRoutes = [
     path: "/siparis",
     name: "Siparisler",
     icon: ShoppingCart,
-    component: TableList,
+    component: Order,
     layout: "/dashboard"
   },
   {

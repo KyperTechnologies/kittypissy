@@ -12,6 +12,9 @@ import adminRoutes from "./adminRoutes.js";
 import { useHistory } from "react-router";
 import styles from "../assets/jss/material-dashboard-react/layouts/adminStyle";
 import bgImage from "../assets/img/bg4.png";
+import Button from "@material-ui/core/Button";
+import styleModule from "./style.module.css";
+import Navbar from "../components/Navbars/Navbar.js";
 
 let ps;
 
@@ -119,7 +122,7 @@ export default function Admin(props) {
     };
   }, [mainPanel, role]);
   return (
-    <div className={classes.wrapper}>
+    <div className={classes.wrapper}  style={{backgroundColor: "#f1f1f1"}}>
       <Sidebar
         routes={role === "User" ? routes : adminRoutes}
         logoText={"KITTY PISSY"}
@@ -130,11 +133,6 @@ export default function Admin(props) {
         {...rest}
       />
       <div className={classes.mainPanel} ref={mainPanel}>
-        {/*<Navbar
-          routes={routes}
-          handleDrawerToggle={handleDrawerToggle}
-          {...rest}
-        />*/}
         {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
         {getRoute() ? (
           <div className={classes.content}>

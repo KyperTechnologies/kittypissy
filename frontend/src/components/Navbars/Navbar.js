@@ -35,13 +35,27 @@ export default function Header(props) {
   });
   return (
     <AppBar className={classes.appBar + appBarClasses}>
-      <Toolbar className={classes.container}>
-        <div className={classes.flex} >
+      <Toolbar className={classes.container} style={{justifyContent: "flex-end"}}>
+        <div>
           {/* Here we create navbar brand, based on route name */}
-          <p className={styleModule.title} style={{ marginTop: "20px" }}>
-            {makeBrand()}
-          </p>
+          <IconButton  color="inherit"
+            aria-label="open drawer"
+            onClick={props.handleDrawerToggle}
+            aria>
+            <span className={styleModule.title}>Sepetim</span>
+          </IconButton>
         </div>
+        <Hidden smDown implementation="css">
+        </Hidden>
+        <Hidden mdUp implementation="css">
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={props.handleDrawerToggle}
+          >
+            <Menu />
+          </IconButton>
+        </Hidden>
       </Toolbar>
     </AppBar>
   );

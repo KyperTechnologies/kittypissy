@@ -12,13 +12,26 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
 // core components
+import Badge from '@material-ui/core/Badge';
+import { withStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
 import AdminNavbarLinks from "../Navbars/AdminNavbarLinks.js";
 import RTLNavbarLinks from "../Navbars/RTLNavbarLinks.js";
-
+import ShoppingCart from "@material-ui/icons/ShoppingCart";
 import styles from "../../assets/jss/material-dashboard-react/components/sidebarStyle.js";
 import styleModule from "./style.module.css";
+import { Row, Col } from "react-bootstrap";
 
 const useStyles = makeStyles(styles);
+
+const StyledBadge = withStyles((theme) => ({
+  badge: {
+    right: -3,
+    top: 13,
+    border: `2px solid ${theme.palette.background.paper}`,
+    padding: '0 4px',
+  },
+}))(Badge);
 
 export default function Sidebar(props) {
   const classes = useStyles();
@@ -26,6 +39,34 @@ export default function Sidebar(props) {
   function activeRoute(routeName) {
     return window.location.href.indexOf(routeName) > -1 ? true : false;
   }
+
+  const getName = (prop, whiteFontClasses) => {
+    console.log("girdi");
+    let icon = null;
+    let cartSize = localStorage.getItem("cart") === null ? 0 : JSON.parse(localStorage.getItem("cart")).length;
+    if (prop.name == "Sepetim") {
+      icon = (
+        <Row style={{alignItems: "center"}}>
+          <Col md={2}>
+            <StyledBadge badgeContent={cartSize} color="secondary">
+              <ShoppingCart />
+            </StyledBadge>
+          </Col>
+          <Col md={10}>
+            <p style={{marginLeft: "-1px", marginBottom: "0", padding: "4px"}}>Sepetim</p>
+          </Col>
+        </Row>
+      );
+    } else {
+      icon = (<prop.icon
+        className={classNames(classes.itemIcon, whiteFontClasses, {
+          [classes.itemIconRTL]: props.rtlActive
+        })}
+      />);
+    }
+    return icon;
+  }
+
   const { color, logo, image, logoText, routes } = props;
   var links = (
     <List className={classes.list}>
@@ -62,19 +103,16 @@ export default function Sidebar(props) {
                   {prop.icon}
                 </Icon>
               ) : (
-                <prop.icon
-                  className={classNames(classes.itemIcon, whiteFontClasses, {
-                    [classes.itemIconRTL]: props.rtlActive
+                  getName(prop, whiteFontClasses)
+                )}
+              {prop.name != "Sepetim" ?
+                <ListItemText
+                  primary={props.rtlActive ? prop.rtlName : prop.name}
+                  className={classNames(classes.itemText, whiteFontClasses, {
+                    [classes.itemTextRTL]: props.rtlActive
                   })}
-                />
-              )}
-              <ListItemText
-                primary={props.rtlActive ? prop.rtlName : prop.name}
-                className={classNames(classes.itemText, whiteFontClasses, {
-                  [classes.itemTextRTL]: props.rtlActive
-                })}
-                disableTypography={true}
-              />
+                  disableTypography={true}
+                /> : (null)}
             </ListItem>
           </NavLink>
         );
@@ -82,8 +120,8 @@ export default function Sidebar(props) {
     </List>
   );
   var brand = (
-    <div className={classes.logo} style={{textAlign: "center"}}>
-        <p className={styleModule.title}>{logoText}</p>
+    <div className={classes.logo} style={{ textAlign: "center" }}>
+      <p className={styleModule.title}>{logoText}</p>
     </div>
   );
   return (
