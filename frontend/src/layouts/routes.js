@@ -19,11 +19,13 @@
 import Dashboard from "@material-ui/icons/Dashboard";
 import ShoppingCart from "@material-ui/icons/ShoppingCart";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import ShopIcon from '@material-ui/icons/Shop';
 import Person from "@material-ui/icons/Person";
 // core components/views for Admin layout
 import ProductPage from "../views/Components/Sections/SectionProducts";
 import UserProfile from "../views/UserProfile/UserProfile";
-import TableList from "../views/TableList/TableList";
+import Order from "../views/TableList/Order";
+import Cart from "../views/TableList/Cart";
 
 // core components/views for RTL layout
 
@@ -45,8 +47,15 @@ const dashboardRoutes = [
   {
     path: "/siparis",
     name: "Siparislerim",
+    icon: ShopIcon,
+    component: Order,
+    layout: "/dashboard"
+  },
+  {
+    path: "/sepetim",
+    name: "Sepetim",
     icon: ShoppingCart,
-    component: TableList,
+    component: Cart,
     layout: "/dashboard"
   },
   {

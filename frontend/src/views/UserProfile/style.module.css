@@ -32,6 +32,50 @@
     margin-top: 20px;
 }
 
+.title3 {
+  font-family:"DINSchrift";
+  font-size: 32px;
+  color: black;
+  margin-top: 20px;
+}
+
+.title4 {
+  font-family:"DINNeuzeitGroteskLTW01-Lt";
+  font-size: 18px;
+  color: black;
+  margin-top: 20px;
+}
+
+.title5 {
+  font-family:"DINSchrift";
+  font-size: 23px;
+  color: black;
+  margin-top: 20px;
+}
+
+.title6 {
+  font-family:"DINSchrift";
+  font-size: 17px;
+  color: white;
+}
+
+.line {
+  border: 1px solid #707070;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 35px;
+  height: 0px;
+  margin-bottom: 40px;
+  background-color: #707070;
+}
+
+.line2 {
+  border: 1px solid #707070;
+  margin-top: 35px;
+  height: 0px;
+  margin-bottom: 40px;
+  background-color: #707070;
+}
 
 .card {
     border-radius: 6px;

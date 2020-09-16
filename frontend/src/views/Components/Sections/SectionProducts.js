@@ -26,7 +26,7 @@ import { UploadOutlined } from '@ant-design/icons';
 class SectionProducts extends Component {
 
   constructor(props) {
-    super(props);
+    super();
     this.state = {
       products: [],
       role: "",
@@ -38,14 +38,24 @@ class SectionProducts extends Component {
     this.createProductList();
   }
 
-  order = (productId) => {
-    console.log(productId);
+  order = (product) => {
+    let cart = localStorage.getItem("cart") === null ? [] : JSON.parse(localStorage.getItem("cart"));
+    cart.push(product);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    this.props.handleCartData(cart);
   }
 
   deleteProduct = async (productId) => {
     console.log(productId);
-    await ProductService.deleteProduct(productId);
-    window.location.reload();
+    await ProductService.deleteProduct(productId)
+      .then((response) => {
+        if (response) {
+          this.setState({
+            product: response,
+          });
+          window.location.reload();
+        }
+      });
   }
 
   updateImage = async (values) => {
@@ -59,7 +69,7 @@ class SectionProducts extends Component {
           product: response,
         });
         window.location.reload();
-      })
+      });
   }
 
   updateProduct = async (values) => {
@@ -302,7 +312,7 @@ class SectionProducts extends Component {
                      Detaylar
                      </Button> 
                     </Col>
-                    <Col md={5}><Button variant="contained" color="google" onClick={() => this.order(element.id)}>
+                    <Col md={5}><Button variant="contained" color="google" onClick={() => this.order(element)}>
                      Sepete ekle
                      </Button>
                     </Col></Row>

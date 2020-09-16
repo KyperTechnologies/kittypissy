@@ -97,7 +97,7 @@ class ProductService {
     }
 
     static async deleteProduct(productId) {
-        Axios.delete(`${config.ip}/deleteProduct?productId=${productId}&access_token=${localStorage.getItem(
+        return await Axios.post(`${config.ip}/deleteProduct?productId=${productId}&access_token=${localStorage.getItem(
             "access_token"
             )}&token_type=${localStorage.getItem("token_type")}`)
             .then(response => {
@@ -106,6 +106,7 @@ class ProductService {
                         content: "Urun Silindi!",
                         style: { marginTop: "100px" },
                     });
+                    return true;
                 }
             })
             .catch(error => {
@@ -113,6 +114,7 @@ class ProductService {
                     content: "Urun Silme Islemi Basarisiz!",
                     style: { marginTop: "100px" },
                 });
+                return false;
             });
     }
 }

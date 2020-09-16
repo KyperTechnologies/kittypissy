@@ -12,45 +12,11 @@ import adminRoutes from "./adminRoutes.js";
 import { useHistory } from "react-router";
 import styles from "../assets/jss/material-dashboard-react/layouts/adminStyle";
 import bgImage from "../assets/img/bg4.png";
+import Button from "@material-ui/core/Button";
+import styleModule from "./style.module.css";
+import Navbar from "../components/Navbars/Navbar.js";
 
 let ps;
-
-const switchRoutes = (
-  <Switch>
-    {routes.map((prop, key) => {
-      if (prop.layout === "/dashboard") {
-        return (
-          <Route
-            path={prop.layout + prop.path}
-            component={prop.component}
-            key={key}
-          />
-        );
-      }
-      return null;
-    })}
-    <Redirect from="/dashboard" to="/dashboard/urunler" />
-  </Switch>
-);
-
-const switchAdminRoutes = (
-  <Switch>
-    {adminRoutes.map((prop, key) => {
-      if (prop.layout === "/dashboard") {
-        return (
-          <Route
-            path={prop.layout + prop.path}
-            component={prop.component}
-            key={key}
-          />
-        );
-      }
-      return null;
-    })}
-    <Redirect from="/dashboard" to="/dashboard/urunler" />
-  </Switch>
-);
-
 const useStyles = makeStyles(styles);
 
 export default function Admin(props) {
@@ -64,6 +30,7 @@ export default function Admin(props) {
   // states and functions
   const [image, setImage] = React.useState(bgImage);
   const [color, setColor] = React.useState("blue");
+  const [cart, setCart] = React.useState();
   const [role, setRole] = React.useState("User");
 
   const [fixedClasses, setFixedClasses] = React.useState("dropdown show");
@@ -74,6 +41,11 @@ export default function Admin(props) {
   const handleColorClick = color => {
     setColor(color);
   };
+  const handleCartData = cart => {
+    console.log("girdi");
+    setCart(cart);
+  }
+
   const handleFixedClick = () => {
     if (fixedClasses === "dropdown") {
       setFixedClasses("dropdown show");
@@ -85,7 +57,7 @@ export default function Admin(props) {
     setMobileOpen(!mobileOpen);
   };
   const getRoute = () => {
-    return window.location.pathname !== "/dashboard/cikis";
+    return window.location.pathname !== "/dashboard/map";
   };
   const resizeFunction = () => {
     if (window.innerWidth >= 960) {
@@ -93,7 +65,58 @@ export default function Admin(props) {
     }
   };
 
-  
+  const switchRoutes = (
+    <Switch>
+      {routes.map((prop, key) => {
+        if (prop.layout === "/dashboard") {
+          if (prop.name === "Urunler" || prop.name === "Sepetim") {
+            return (
+              <Route
+                path={prop.layout + prop.path}
+                component={() => <prop.component handleCartData={handleCartData} ></prop.component>}
+                key={key}
+              />);
+          } else {
+            return (
+              <Route
+                path={prop.layout + prop.path}
+                component={prop.component}
+                key={key}
+              />);
+          }
+        }
+        return null;
+      })}
+      <Redirect from="/dashboard" to="/dashboard/urunler" />
+    </Switch>
+  );
+
+  const switchAdminRoutes = (
+    <Switch>
+      {adminRoutes.map((prop, key) => {
+        if (prop.layout === "/dashboard") {
+          if (prop.name === "Urunler") {
+            return (
+              <Route
+                path={prop.layout + prop.path}
+                component={() => <prop.component handleCartData={handleCartData} ></prop.component>}
+                key={key}
+              />);
+          } else {
+            return (
+              <Route
+                path={prop.layout + prop.path}
+                component={prop.component}
+                key={key}
+              />);
+          }
+        }
+        return null;
+      })}
+      <Redirect from="/dashboard" to="/dashboard/urunler" />
+    </Switch>
+  );
+
   // initialize and destroy the PerfectScrollbar plugin
   React.useEffect(() => {
     const getRole = async () => {
@@ -117,32 +140,28 @@ export default function Admin(props) {
       }
       window.removeEventListener("resize", resizeFunction);
     };
-  }, [mainPanel, role]);
+  }, [mainPanel, role, cart]);
+
   return (
-    <div className={classes.wrapper}>
+    <div className={classes.wrapper} style={{ backgroundColor: "#f1f1f1" }}>
       <Sidebar
         routes={role === "User" ? routes : adminRoutes}
         logoText={"KITTY PISSY"}
         image={image}
         handleDrawerToggle={handleDrawerToggle}
+        handleCartData={handleCartData}
         open={mobileOpen}
         color={color}
+        cart={cart}
         {...rest}
       />
       <div className={classes.mainPanel} ref={mainPanel}>
-        {/*<Navbar
-          routes={routes}
-          handleDrawerToggle={handleDrawerToggle}
-          {...rest}
-        />*/}
         {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
         {getRoute() ? (
           <div className={classes.content}>
             <div className={classes.container}>{role === "User" ? switchRoutes : switchAdminRoutes}</div>
-          </div>
-        ) : (
-            history.push("/")
-          )}
+          </div>)
+          : (null)}
         {getRoute() ? <Footer /> : null}
         <FixedPlugin
           handleImageClick={handleImageClick}

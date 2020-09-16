@@ -59,9 +59,17 @@ public class ProductService {
 		return productRepository.save(product);
 	}
 	
-	public void removeProductById(Integer id) {
+	public boolean removeProductById(Integer id) {
 		ProductInfo product = getProductById(id);
-		productRepository.delete(product);
+		if (product != null) {
+			try {
+				productRepository.delete(product);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return true;
+		}
+		return false;
 	}
 	
 	public void removeProductByCode(String code) {

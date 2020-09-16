@@ -156,6 +156,16 @@ const sidebarStyle = theme => ({
     backgroundColor: "transparent",
     ...defaultFont
   },
+  itemLink2: {
+    width: "auto",
+    transition: "all 300ms linear",
+    borderRadius: "3px",
+    position: "relative",
+    display: "block",
+    padding: "10px 15px",
+    backgroundColor: "transparent",
+    ...defaultFont
+  },
   itemIcon: {
     width: "24px",
     height: "30px",

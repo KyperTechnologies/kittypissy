@@ -3,6 +3,7 @@ import React from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
+import { NavLink as Link } from "react-bootstrap"
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -12,21 +13,64 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
 // core components
+import Badge from '@material-ui/core/Badge';
+import { withStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
 import AdminNavbarLinks from "../Navbars/AdminNavbarLinks.js";
 import RTLNavbarLinks from "../Navbars/RTLNavbarLinks.js";
-
+import ShoppingCart from "@material-ui/icons/ShoppingCart";
 import styles from "../../assets/jss/material-dashboard-react/components/sidebarStyle.js";
 import styleModule from "./style.module.css";
+import { Row, Col } from "react-bootstrap";
 
 const useStyles = makeStyles(styles);
 
+const StyledBadge = withStyles((theme) => ({
+  badge: {
+    right: -3,
+    top: 13,
+    border: `2px solid ${theme.palette.background.paper}`,
+    padding: '0 4px',
+  },
+}))(Badge);
+
 export default function Sidebar(props) {
   const classes = useStyles();
+  const { color, logo, image, logoText, routes, cart } = props;
+
   // verifies if routeName is the one active (in browser input)
   function activeRoute(routeName) {
     return window.location.href.indexOf(routeName) > -1 ? true : false;
   }
-  const { color, logo, image, logoText, routes } = props;
+
+  const getName = (prop, whiteFontClasses) => {
+    let icon = null;
+    let cartData = localStorage.getItem("cart") === null ? [] : JSON.parse(localStorage.getItem("cart"));
+    props.handleCartData;
+    let cartSize = cartData.length;
+    if (prop.name == "Sepetim") {
+      icon = (
+        <Row style={{ alignItems: "center" }}>
+          <Col md={2}>
+            <StyledBadge badgeContent={cartSize} color="secondary">
+              <ShoppingCart />
+            </StyledBadge>
+          </Col>
+          <Col md={10}>
+            <p style={{ marginLeft: "-1px", marginBottom: "0", padding: "4px" }}>Sepetim</p>
+          </Col>
+        </Row>
+      );
+    } else {
+      icon = (<prop.icon
+        className={classNames(classes.itemIcon, whiteFontClasses, {
+          [classes.itemIconRTL]: props.rtlActive
+        })}
+      />);
+    }
+    return icon;
+  }
+
   var links = (
     <List className={classes.list}>
       {routes.map((prop, key) => {
@@ -45,14 +89,14 @@ export default function Sidebar(props) {
         const whiteFontClasses = classNames({
           [" " + classes.whiteFont]: activeRoute(prop.layout + prop.path)
         });
-        return (
-          <NavLink
-            to={prop.layout + prop.path}
+        const data = prop.name === "CIKIS" ? (
+          <Link
+            href="/"
             className={activePro + classes.item}
             activeClassName="active"
             key={key}
           >
-            <ListItem button className={classes.itemLink + listItemClasses}>
+            <ListItem button className={classes.itemLink2 + listItemClasses}>
               {typeof prop.icon === "string" ? (
                 <Icon
                   className={classNames(classes.itemIcon, whiteFontClasses, {
@@ -62,28 +106,55 @@ export default function Sidebar(props) {
                   {prop.icon}
                 </Icon>
               ) : (
-                <prop.icon
-                  className={classNames(classes.itemIcon, whiteFontClasses, {
-                    [classes.itemIconRTL]: props.rtlActive
+                  getName(prop, whiteFontClasses)
+                )}
+              {prop.name != "Sepetim" ?
+                <ListItemText
+                  primary={props.rtlActive ? prop.rtlName : prop.name}
+                  className={classNames(classes.itemText, whiteFontClasses, {
+                    [classes.itemTextRTL]: props.rtlActive
                   })}
-                />
-              )}
-              <ListItemText
-                primary={props.rtlActive ? prop.rtlName : prop.name}
-                className={classNames(classes.itemText, whiteFontClasses, {
-                  [classes.itemTextRTL]: props.rtlActive
-                })}
-                disableTypography={true}
-              />
+                  disableTypography={true}
+                /> : (null)}
             </ListItem>
-          </NavLink>
-        );
+          </Link>
+        ) : (
+            <NavLink
+              to={prop.layout + prop.path}
+              className={activePro + classes.item}
+              activeClassName="active"
+              key={key}
+            >
+              <ListItem button className={classes.itemLink + listItemClasses}>
+                {typeof prop.icon === "string" ? (
+                  <Icon
+                    className={classNames(classes.itemIcon, whiteFontClasses, {
+                      [classes.itemIconRTL]: props.rtlActive
+                    })}
+                  >
+                    {prop.icon}
+                  </Icon>
+                ) : (
+                    getName(prop, whiteFontClasses)
+                  )}
+                {prop.name != "Sepetim" ?
+                  <ListItemText
+                    primary={props.rtlActive ? prop.rtlName : prop.name}
+                    className={classNames(classes.itemText, whiteFontClasses, {
+                      [classes.itemTextRTL]: props.rtlActive
+                    })}
+                    disableTypography={true}
+                  /> : (null)}
+              </ListItem>
+            </NavLink>
+          );
+        return data;
       })}
     </List>
   );
   var brand = (
-    <div className={classes.logo} style={{textAlign: "center"}}>
-        <p className={styleModule.title}>{logoText}</p>
+    <div className={classes.logo} style={{ textAlign: "center" }}>
+      <p className={styleModule.title}>{logoText}</p>
     </div>
   );
   return (
@@ -144,6 +215,7 @@ export default function Sidebar(props) {
 Sidebar.propTypes = {
   rtlActive: PropTypes.bool,
   handleDrawerToggle: PropTypes.func,
+  handleCartData: PropTypes.func,
   bgColor: PropTypes.oneOf(["purple", "blue", "green", "orange", "red"]),
   logo: PropTypes.string,
   image: PropTypes.string,

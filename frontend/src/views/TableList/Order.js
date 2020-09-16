@@ -79,7 +79,7 @@ class TableList extends Component {
       content: (
         <div style={{ textAlign: "center" }}>
           <Card>
-            <Card.Img variant="top" src="holder.js/100px180?text=Image cap" />
+            <Card.Img variant="top" src={`data:image/jpeg;base64,${order.product.image}`} />
             <ListGroup className="list-group-flush">
               <ListGroupItem>
                 <Row>
