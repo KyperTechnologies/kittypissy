@@ -1,3 +1,3 @@
 export default {
-    ip: "https://localhost:8080"
+    ip: "https://www.kittypissy.com/server"
 }
