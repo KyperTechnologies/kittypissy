@@ -15,7 +15,7 @@ export default function signupConfirmed(props) {
         isMain={false}
         rightLinks={<HeaderLinks />}
         fixed
-        color="white"
+        color="dark"
         changeColorOnScroll={{
           height: 400,
           color: "white"
