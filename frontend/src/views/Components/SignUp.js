@@ -20,6 +20,7 @@ import {
     Alert
 } from 'antd';
 import UserService from '../../service/UserService';
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -41,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 export default function SignUp(props) {
+    const history = useHistory();
     const classes = useStyles();
     const { ...rest } = props;
     const [values, setValues] = React.useState({
@@ -49,24 +51,29 @@ export default function SignUp(props) {
         weight: '',
         weightRange: '',
         showPassword: false,
-      });
+    });
 
     const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
+        setValues({ ...values, showPassword: !values.showPassword });
     };
 
     const handleMouseDownPassword = (event) => {
-    event.preventDefault();
+        event.preventDefault();
     };
 
-    const register = (values) => {
+    const register = async (values) => {
         const jsonBody = {
             "name": values.user.firstName,
-		    "surname": values.user.lastName,
-		    "email": values.user.email,
-		    "password": values.user.password
+            "surname": values.user.lastName,
+            "email": values.user.email,
+            "password": values.user.password
         }
-        UserService.register(jsonBody);
+        const response = await UserService.register(jsonBody);
+        if (response){
+            history.push({
+                pathname: "/confirmed"
+            })
+        }
     }
 
     return (
@@ -84,10 +91,10 @@ export default function SignUp(props) {
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon />
                 </Avatar>
-                <Typography style={{marginBottom: "50px"}} component="h1" variant="h5">
+                <Typography style={{ marginBottom: "50px" }} component="h1" variant="h5">
                     Hoşgeldiniz
                 </Typography>
-                <Form 
+                <Form
                     layout="vertical"
                     name="login"
                     initialValues={{
@@ -102,7 +109,7 @@ export default function SignUp(props) {
                                 rules={[
                                     {
                                         required: true,
-                                        message: (<Alert style={{marginTop: "10px"}} message="Lutfen isminizi giriniz" type="error"/>)
+                                        message: (<Alert style={{ marginTop: "10px" }} message="Lutfen isminizi giriniz" type="error" />)
                                     },
                                 ]}
 
@@ -122,7 +129,7 @@ export default function SignUp(props) {
                                 rules={[
                                     {
                                         required: true,
-                                        message: (<Alert style={{marginTop: "10px"}} message="Lutfen soyismizi giriniz" type="error"/>)
+                                        message: (<Alert style={{ marginTop: "10px" }} message="Lutfen soyismizi giriniz" type="error" />)
                                     },
                                 ]}
 
@@ -142,11 +149,11 @@ export default function SignUp(props) {
                                 rules={[
                                     {
                                         required: true,
-                                        message: (<Alert style={{marginTop: "10px"}} message="Lutfen Email adresinizi giriniz" type="error"/>)
+                                        message: (<Alert style={{ marginTop: "10px" }} message="Lutfen Email adresinizi giriniz" type="error" />)
                                     },
                                     {
                                         type: "email",
-                                        message: (<Alert style={{marginTop: "10px"}} message="Gecerli bir email adresi giriniz" type="error"/>)
+                                        message: (<Alert style={{ marginTop: "10px" }} message="Gecerli bir email adresi giriniz" type="error" />)
                                     },
                                 ]}
                             >
@@ -165,13 +172,13 @@ export default function SignUp(props) {
                                 rules={[
                                     {
                                         required: true,
-                                        message: (<Alert style={{marginTop: "10px"}} message="Lutfen sifre giriniz" type="error"/>)
+                                        message: (<Alert style={{ marginTop: "10px" }} message="Lutfen sifre giriniz" type="error" />)
                                     },
                                     () => ({
                                         validator(rule, value, callback) {
                                             if (value && value.length < 8) {
                                                 callback(
-                                                    (<Alert style={{marginTop: "10px"}} message="Sifre en az 8 karakter uzunlugunda olmalidir" type="error"/>)
+                                                    (<Alert style={{ marginTop: "10px" }} message="Sifre en az 8 karakter uzunlugunda olmalidir" type="error" />)
                                                 );
                                             } else if (
                                                 value &&
@@ -182,7 +189,7 @@ export default function SignUp(props) {
                                                 )
                                             ) {
                                                 callback(
-                                                    (<Alert style={{marginTop: "10px"}} message="Sifre en az 1 sayi, 1 kucuk harf ve 1 buyuk harf icermelidir" type="error"/>)
+                                                    (<Alert style={{ marginTop: "10px" }} message="Sifre en az 1 sayi, 1 kucuk harf ve 1 buyuk harf icermelidir" type="error" />)
                                                 );
                                             } else {
                                                 callback();
@@ -199,16 +206,16 @@ export default function SignUp(props) {
                                     type={values.showPassword ? 'text' : 'password'}
                                     InputProps={{
                                         endAdornment: (<InputAdornment position="end">
-                                                            <IconButton
-                                                            aria-label="toggle password visibility"
-                                                            onClick={handleClickShowPassword}
-                                                            onMouseDown={handleMouseDownPassword}
-                                                            edge="end"
-                                                            style={{marginRight: "5px"}}
-                                                            >
-                                                            {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                                                            </IconButton>
-                                                        </InputAdornment>),
+                                            <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={handleClickShowPassword}
+                                                onMouseDown={handleMouseDownPassword}
+                                                edge="end"
+                                                style={{ marginRight: "5px" }}
+                                            >
+                                                {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                                            </IconButton>
+                                        </InputAdornment>),
                                     }}
                                 />
                             </Form.Item>
@@ -222,20 +229,20 @@ export default function SignUp(props) {
                                 rules={[
                                     {
                                         required: true,
-                                        message: (<Alert style={{marginTop: "10px"}} message="Lutfen sifrenizi tekrar giriniz" type="error"/>)
+                                        message: (<Alert style={{ marginTop: "10px" }} message="Lutfen sifrenizi tekrar giriniz" type="error" />)
                                     },
-                                    ({getFieldValue}) => ({
+                                    ({ getFieldValue }) => ({
                                         validator(rule, value) {
                                             if (!value || getFieldValue(['user', 'password']) === value) {
                                                 return Promise.resolve();
                                             }
                                             return Promise.reject(
-                                                (<Alert style={{marginTop: "10px"}} message="Girilen sifreler eslesmiyor, Lutfen tekrar deneyin" type="error"/>)
+                                                (<Alert style={{ marginTop: "10px" }} message="Girilen sifreler eslesmiyor, Lutfen tekrar deneyin" type="error" />)
                                             );
                                         },
                                     }),
                                 ]}
-                                >
+                            >
                                 <TextField
                                     variant="outlined"
                                     fullWidth
@@ -243,16 +250,16 @@ export default function SignUp(props) {
                                     type={values.showPassword ? 'text' : 'password'}
                                     InputProps={{
                                         endAdornment: (<InputAdornment position="end">
-                                                            <IconButton
-                                                            aria-label="toggle password visibility"
-                                                            onClick={handleClickShowPassword}
-                                                            onMouseDown={handleMouseDownPassword}
-                                                            edge="end"
-                                                            style={{marginRight: "5px"}}
-                                                            >
-                                                            {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                                                            </IconButton>
-                                                        </InputAdornment>),
+                                            <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={handleClickShowPassword}
+                                                onMouseDown={handleMouseDownPassword}
+                                                edge="end"
+                                                style={{ marginRight: "5px" }}
+                                            >
+                                                {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                                            </IconButton>
+                                        </InputAdornment>),
                                     }}
                                 />
                             </Form.Item>
