@@ -124,7 +124,21 @@ export default function Admin(props) {
       const role = await UserService.getUserRole(email);
       setRole(role);
     }
+    
+    if(props.location.pathname === "/dashboard") {
+      if(props.location.fromLogin !== true && props.location.fromLogin !== null) {
+        localStorage.clear();
+        history.push("/");
+      }
+    } else {
+      const email = localStorage.getItem("email");
+      if (email === null) {
+        localStorage.clear();
+        history.push("/");
+      }
+    }
     getRole();
+
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(mainPanel.current, {
         suppressScrollX: true,
