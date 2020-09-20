@@ -11,6 +11,7 @@ import routes from "./routes.js";
 import adminRoutes from "./adminRoutes.js";
 import styles from "../assets/jss/material-dashboard-react/layouts/adminStyle";
 import bgImage from "../assets/img/bg4.png";
+import { useHistory } from "react-router";
 
 let ps;
 const useStyles = makeStyles(styles);
@@ -18,7 +19,7 @@ const useStyles = makeStyles(styles);
 export default function Admin(props) {
   // styles
   const classes = useStyles();
-
+  const history = useHistory();
   const { ...rest } = props;
   // ref to help us initialize PerfectScrollbar on windows devices
   const mainPanel = React.createRef();
