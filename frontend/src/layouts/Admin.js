@@ -9,12 +9,8 @@ import Sidebar from "../components/Sidebar/Sidebar";
 import FixedPlugin from "../components/FixedPlugin/FixedPlugin";
 import routes from "./routes.js";
 import adminRoutes from "./adminRoutes.js";
-import { useHistory } from "react-router";
 import styles from "../assets/jss/material-dashboard-react/layouts/adminStyle";
 import bgImage from "../assets/img/bg4.png";
-import Button from "@material-ui/core/Button";
-import styleModule from "./style.module.css";
-import Navbar from "../components/Navbars/Navbar.js";
 
 let ps;
 const useStyles = makeStyles(styles);
@@ -22,7 +18,6 @@ const useStyles = makeStyles(styles);
 export default function Admin(props) {
   // styles
   const classes = useStyles();
-  const history = useHistory();
 
   const { ...rest } = props;
   // ref to help us initialize PerfectScrollbar on windows devices
