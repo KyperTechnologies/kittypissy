@@ -18,7 +18,7 @@
 // @material-ui/icons
 import Dashboard from "@material-ui/icons/Dashboard";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import ShoppingCart from "@material-ui/icons/ShoppingCart";
+import ShopIcon from '@material-ui/icons/Shop';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import Person from "@material-ui/icons/Person";
 // core components/views for Admin layout
@@ -54,13 +54,13 @@ const dashboardRoutes = [
   {
     path: "/siparis",
     name: "Siparisler",
-    icon: ShoppingCart,
+    icon: ShopIcon,
     component: Order,
     layout: "/dashboard"
   },
   {
     path: "/cikis",
-    name: "Cikis",
+    name: "CIKIS",
     icon: ExitToAppIcon,
     layout: "/dashboard"
   },

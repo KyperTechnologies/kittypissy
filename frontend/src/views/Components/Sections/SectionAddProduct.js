@@ -161,7 +161,7 @@ export default function SectionAddProducts() {
                             </GridContainer>
                         </CardBody>
                         <CardFooter style={{ justifyContent: "center" }}>
-                            <Button type="submit" color="github" round>Ekle</Button>
+                            <Button type="submit" color="success">Ekle</Button>
                         </CardFooter>
                     </Card>
                 </Form>

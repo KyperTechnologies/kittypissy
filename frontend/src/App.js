@@ -18,7 +18,7 @@ function App() {
           <Route path="/dashboard" component={Admin} />
           <Route path="/giris" exact component={SignIn} />
           <Route path="/uyeol" exact component={SignUp} />
-          <Route path="/urunler" exact component={ShopPage} />
+          {/*<Route path="/urunler" exact component={ShopPage} />*/}
           <Route path="/" exact component={MainPage} />
         </Switch>
       </Router>

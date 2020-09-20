@@ -46,6 +46,7 @@ class UserProfile extends Component {
     this.setState({
       userDetails: response,
     })
+    console.log(response);
     this.getUserDetails(response);
   }
 
@@ -83,6 +84,7 @@ class UserProfile extends Component {
                   <Form.Item
                     name={['user', 'phone']}
                     initialValue={data.phone}
+                    rules={[{  pattern: "^[0-9]+$", message: "Lutfen gecerli bir Telefon giriniz" }]}
                   >
                     <TextField
                       label="Telefon No"
@@ -135,6 +137,48 @@ class UserProfile extends Component {
                   </Form.Item>
                 </GridItem>
               </GridContainer>
+              <GridContainer>
+                <GridItem xs={12} sm={12} md={6}>
+                  <Form.Item
+                    name={['user', 'country']}
+                    initialValue={data.country}
+                  >
+                    <TextField
+                      label="Sehir"
+                      fullWidth
+                      defaultValue={data.country}
+                    />
+                  </Form.Item>
+                </GridItem>
+                <GridItem xs={12} sm={12} md={6}>
+                  <Form.Item
+                    name={['user', 'zipcode']}
+                    initialValue={data.zipcode}
+                    rules={[{  pattern: "^[0-9]+$", message: "Lutfen gecerli bir Zip kodu giriniz" }]}
+                  >
+                    <TextField
+                      label="Zip Kodu"
+                      fullWidth
+                      defaultValue={data.zipcode}
+                    />
+                  </Form.Item>
+                </GridItem>
+              </GridContainer>
+              <GridContainer>
+                <GridItem xs={12} sm={12} md={12}>
+                  <Form.Item
+                    name={['user', 'idendityNo']}
+                    initialValue={data.idendityNo}
+                    rules={[{  pattern: "^[0-9]+$", message: "Lutfen gecerli bir TC No giriniz" }]}
+                  >
+                    <TextField
+                      label="TC No"
+                      fullWidth
+                      defaultValue={data.idendityNo}
+                    />
+                  </Form.Item>
+                </GridItem>
+              </GridContainer>
             </CardBody>
             <CardFooter style={{ justifyContent: "center" }}>
               <Button type="submit" color="github" round>Guncelle</Button>
@@ -155,7 +199,10 @@ class UserProfile extends Component {
       "name": values.user.name,
       "surname": values.user.surname,
       "adress": values.user.adress,
-      "phone": values.user.phone
+      "phone": values.user.phone,
+      "country": values.user.country,
+      "zipcode": values.user.zipcode,
+      "idendityNo": values.user.idendityNo
     }
     UserService.updateUser(jsonBody);
   }

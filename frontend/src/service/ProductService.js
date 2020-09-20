@@ -19,6 +19,18 @@ class ProductService {
             });
     }
 
+    static async getPreviewProducts() {
+        return await Axios.get(`${config.ip}/getPreviewProducts`)
+            .then(response => {
+                if (response.status === 200) {
+                    return response.data;
+                }
+            })
+            .catch(error => {
+                
+            });
+    }
+
     static async getProductById(productId) {
         return await Axios.get(`${config.ip}/getProductById?productId=${productId}&access_token=${localStorage.getItem(
             "access_token"

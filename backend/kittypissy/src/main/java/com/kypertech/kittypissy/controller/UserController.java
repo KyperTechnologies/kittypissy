@@ -86,6 +86,9 @@ public class UserController {
 			result.put("email", userInfo.getEmail());
 			result.put("phone", userInfo.getPhone());
 			result.put("adress", userInfo.getAdress());
+			result.put("country", userInfo.getCountry());
+			result.put("zipcode", userInfo.getZipcode());
+			result.put("idendityNo", userInfo.getIdendityNo());
 			return new ResponseEntity<>(result, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>("Yanlis Email/Sifre", HttpStatus.BAD_REQUEST);
@@ -111,10 +114,13 @@ public class UserController {
 		String surname = (String) body.get("surname");
 		String adress = (String) body.get("adress");
 		String phone = (String) body.get("phone");
+		String zipcode = (String) body.get("zipcode");
+		String country = (String) body.get("country");
+		String idendityNo = (String) body.get("idendityNo");
+
 		
 		UserInfo userInfo = userService.getUserByEmail(email);
-		
-		userInfo = userService.updateUser(userInfo, email, name, surname, phone, adress);
+		userInfo = userService.updateUser(userInfo, email, name, surname, phone, adress, zipcode, country, idendityNo);
 		
 		if (userInfo == null) {
 			return new ResponseEntity<>("Guncelleme Basarisiz", HttpStatus.BAD_REQUEST);

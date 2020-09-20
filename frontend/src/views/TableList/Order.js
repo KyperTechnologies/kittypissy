@@ -1,28 +1,39 @@
 import React, { Component } from "react";
 import GridItem from "../../components/Grid/GridItem.js";
 import GridContainer from "../../components/Grid/GridContainer.js";
-import Table from "../../components/Table/Table.js";
 import CardHeader from "../../components/Card/CardHeader.js";
 import CardBody from "../../components/Card/CardBody.js";
-import Button from "../../components/CustomButtons/Button.js";
 import styleModule from "../UserProfile/style.module.css";
 import UserService from "../../service/UserService";
 import OrderService from "../../service/OrderService";
-import {
-  Alert,
-  Modal
-} from 'antd';
-import { Row, Col, Card, ListGroupItem, ListGroup } from "react-bootstrap";
+import TableContainer from '@material-ui/core/TableContainer';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import Table from '@material-ui/core/Table';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Collapse from '@material-ui/core/Collapse';
+import IconButton from '@material-ui/core/IconButton';
+import Box from '@material-ui/core/Box';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import PropTypes from 'prop-types';
+import { Card } from "react-bootstrap";
+import EditIcon from '@material-ui/icons/Edit';
+import { Modal, Form, Select, Button, Alert, message } from "antd";
 
-class TableList extends Component {
+const { Option } = Select;
+
+class Order extends Component {
   constructor(props) {
     super(props);
     this.state = {
       orders: [],
       role: "",
-      table: null
+      table: null,
     };
-    this.getOrderDetails = this.getOrderDetails.bind(this);
   }
 
   componentDidMount() {
@@ -38,114 +49,28 @@ class TableList extends Component {
     } else if (role === "User") {
       orders = await OrderService.getOrdersByEmail(userEmail);
     }
-    this.getTable(orders, role);
-  }
-
-  getTable = (orders, role) => {
-    const tableData = [];
-    orders.forEach(element => {
-      const orderData = [];
-      orderData.push(element.product.name);
-      orderData.push(element.product.price);
-      orderData.push(element.checkoutType);
-      orderData.push(element.status);
-      orderData.push(<Button style={{ marginRight: "-60px" }} onClick={() => this.getOrderDetails(element.id)} color="github" round>Detay</Button>);
-      tableData.push(orderData);
-    });
-    console.log(orders.length)
-    const tableHead = orders.length > 0 ? ["Urun Ismi", "Fiyat", "Odeme Sekli", "Durum"] :
-      [<Alert style={{ textAlign: "center" }} message="Siparis Bulunamadi" type="warning" />];
-    const table = (
-      <Table
-        tableHeaderColor="primary"
-        tableHead={tableHead}
-        tableData={tableData}
-      />
-    );
-
     this.setState({
       role: role,
       orders: orders,
-      table: table,
-    })
+    });
   }
 
-  async getOrderDetails(orderId) {
-    const order = await OrderService.getOrderById(orderId);
-    Modal.info({
-      title: <p className={styleModule.title} style={{ textAlign: "center" }}>Urun Detayi</p>,
-      icon: "",
-      okText: "Kapat",
-      content: (
-        <div style={{ textAlign: "center" }}>
-          <Card>
-            <Card.Img variant="top" src={`data:image/jpeg;base64,${order.product.image}`} />
-            <ListGroup className="list-group-flush">
-              <ListGroupItem>
-                <Row>
-                  <Col>
-                    <p className={styleModule.title2}>Urun ismi:</p>
-                  </Col>
-                  <Col>
-                    <p className={styleModule.title2}>{order.product.name}</p>
-                  </Col>
-                </Row>
-              </ListGroupItem>
-              <ListGroupItem>
-                <Row>
-                  <Col>
-                    <p className={styleModule.title2}>Urun kodu:</p>
-                  </Col>
-                  <Col>
-                    <p className={styleModule.title2}>{order.product.code}</p>
-                  </Col>
-                </Row>
-              </ListGroupItem>
-              <ListGroupItem>
-                <Row>
-                  <Col>
-                    <p className={styleModule.title2}>Urun aciklamasi:</p>
-                  </Col>
-                  <Col>
-                    <p className={styleModule.title2}>{order.product.description}</p>
-                  </Col>
-                </Row>
-              </ListGroupItem>
-              <ListGroupItem>
-                <Row>
-                  <Col>
-                    <p className={styleModule.title2}>Odeme Sekli:</p>
-                  </Col>
-                  <Col>
-                    <p className={styleModule.title2}>{order.checkoutType}</p>
-                  </Col>
-                </Row>
-              </ListGroupItem>
-              <ListGroupItem>
-                <Row>
-                  <Col>
-                    <p className={styleModule.title2}>Urun fiyati:</p>
-                  </Col>
-                  <Col>
-                    <p className={styleModule.title2}>{order.product.price}</p>
-                  </Col>
-                </Row>
-              </ListGroupItem>
-              <ListGroupItem>
-                <Row>
-                  <Col>
-                    <p className={styleModule.title2}>Durum:</p>
-                  </Col>
-                  <Col>
-                    <p className={styleModule.title2}>{order.status}</p>
-                  </Col>
-                </Row>
-              </ListGroupItem>
-            </ListGroup>
-          </Card>
-        </div>
-      ),
-      onOk() { },
+  setOrder = (order) => {
+    const newOrders = this.state.orders;
+    let index = -1;
+    newOrders.forEach(element => {
+      if (element.id === order.id) {
+        index = newOrders.indexOf(element);
+      }
+    });
+    
+    if (index > -1) {
+      newOrders.splice(index, 1);
+      newOrders.push(order);
+    }
+
+    this.setState({
+      orders: newOrders,
     });
   }
 
@@ -161,7 +86,36 @@ class TableList extends Component {
               </p>
             </CardHeader>
             <CardBody>
-              {this.state.table}
+              <TableContainer>
+                <Table aria-label="collapsible table">
+                  <TableHead>
+                    {this.state.role === "Admin" ? (
+                      <TableRow>
+                        <TableCell />
+                        <TableCell>Urun Ismi</TableCell>
+                        <TableCell align="center">Urun Kodu</TableCell>
+                        <TableCell align="center">Fiyat</TableCell>
+                        <TableCell align="center">Odeme Sekli</TableCell>
+                        <TableCell align="center">Durum</TableCell>
+                        <TableCell align="center">Guncelle</TableCell>
+                      </TableRow>
+                    ) : (
+                        <TableRow>
+                          <TableCell />
+                          <TableCell>Urun Ismi</TableCell>
+                          <TableCell align="center">Fiyat</TableCell>
+                          <TableCell align="center">Odeme Sekli</TableCell>
+                          <TableCell align="center">Durum</TableCell>
+                        </TableRow>
+                      )}
+                  </TableHead>
+                  <TableBody>
+                    {this.state.orders.map((order) => (
+                      <Row key={order.id} row={order} role={this.state.role} setOrder={this.setOrder}/>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </CardBody>
           </Card>
         </GridItem>
@@ -170,4 +124,177 @@ class TableList extends Component {
   }
 }
 
-export default TableList;
+const useRowStyles = makeStyles({
+  root: {
+    '& > *': {
+      borderBottom: 'unset',
+    },
+  },
+});
+
+function Row(props) {
+  const { row, role, setOrder } = props;
+  const [open, setOpen] = React.useState(false);
+  const classes = useRowStyles();
+
+  const changeStatus = async (values) => {
+    console.log(values);
+    const jsonBody = {
+      orderId: values.id,
+      status: values.select,
+    }
+    const response = await OrderService.changeStatus(jsonBody);
+    if (response === false) {
+      message.error({
+        content: "Guncelleme Basarisiz!",
+        style: { marginTop: "100px" },
+      });
+    } else {
+      message.success({
+        content: "Guncelleme Basarili!",
+        style: { marginTop: "100px" },
+      });
+      setOrder(response);
+      Modal.destroyAll();
+    }
+  }
+
+  const changeStatusModal = (defaultValue, orderId) => {
+    Modal.info({
+      icon: "",
+      okText: "Kapat",
+      okType: "danger",
+      centered: "true",
+      content: (
+        <Form onFinish={changeStatus}>
+          <Form.Item
+            name="id"
+            initialValue={orderId} />
+          <Form.Item
+            name="select"
+            label="Seciniz"
+            initialValue={defaultValue}
+            rules={[{ required: true, message: (<Alert style={{ marginTop: "10px", marginBottom: "10px" }} message="Lutfen secim yapiniz" type="error" />) }]}
+          >
+            <Select defaultValue={defaultValue} placeholder="Lutfen secim yapiniz">
+              <Option value="Siparis Alindi">Siparis Alindi</Option>
+              <Option value="Hazirlaniyor">Hazirlaniyor</Option>
+              <Option value="Kargoya Verildi">Kargoya Verildi</Option>
+              <Option value="Teslim Edildi">Teslim Edildi</Option>
+            </Select>
+          </Form.Item>
+          <Form.Item style={{ textAlign: "center" }}>
+            <Button type="primary" htmlType="submit">
+              Guncelle
+          </Button>
+          </Form.Item>
+        </Form>
+      )
+    });
+  }
+
+  return (
+    <React.Fragment>
+      <TableRow className={classes.root}>
+        <TableCell>
+          <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
+            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          </IconButton>
+        </TableCell>
+        <TableCell component="th" scope="row">
+          {row.product.name}
+        </TableCell>
+        {role === "Admin" ? <TableCell align="center">{row.product.code}</TableCell> : (null)}
+        <TableCell align="center">{row.product.price} ₺</TableCell>
+        <TableCell align="center">{row.checkoutType}</TableCell>
+        <TableCell align="center">{row.status}</TableCell>
+        {role === "Admin" ? <IconButton onClick={() => changeStatusModal(row.status, row.id)}>
+          <EditIcon />
+        </IconButton> : (null)}
+      </TableRow>
+      <TableRow>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={12}>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <Box margin={1}>
+              <Typography variant="h6" gutterBottom component="div">
+                Detay
+              </Typography>
+              <Table size="small" aria-label="purchases">
+                <TableHead>
+                  {role === "Admin" ? (
+                    <TableRow>
+                      <TableCell align="center">Isim</TableCell>
+                      <TableCell align="center">Soyisim</TableCell>
+                      <TableCell align="center">Email</TableCell>
+                      <TableCell align="center">Adres</TableCell>
+                      <TableCell align="center">Sehir</TableCell>
+                      <TableCell align="center">Zip Kodu</TableCell>
+                      <TableCell align="center">Telefon</TableCell>
+                    </TableRow>) : (
+                      <TableRow>
+                        <TableCell align="center">Urun Resmi</TableCell>
+                        <TableCell align="center">Urun Adi</TableCell>
+                        <TableCell align="center">Urun Fiyati</TableCell>
+                        <TableCell align="center">Urun Kodu</TableCell>
+                        <TableCell align="center">Urun Aciklamasi</TableCell>
+                        <TableCell align="center">Durum</TableCell>
+                        <TableCell align="center">Odeme Sekli</TableCell>
+                      </TableRow>
+                    )}
+                </TableHead>
+                {role === "Admin" ? (
+                  <TableBody>
+                    <TableRow key={row.buyer.id}>
+                      <TableCell align="center">{row.buyer.name}</TableCell>
+                      <TableCell align="center">{row.buyer.surName}</TableCell>
+                      <TableCell align="center">{row.buyer.email}</TableCell>
+                      <TableCell align="center">{row.buyer.adress}</TableCell>
+                      <TableCell align="center">{row.buyer.country}</TableCell>
+                      <TableCell align="center">{row.buyer.zipcode}</TableCell>
+                      <TableCell align="center">{row.buyer.phone}</TableCell>
+                    </TableRow>
+                  </TableBody>
+                ) : (
+                    <TableBody>
+                      <TableRow key={row.product.id}>
+                        <TableCell component="th" scope="row">
+                          <img style={{ width: "60px" }} variant="top" src={`data:image/jpeg;base64,${row.product.image}`} alt="img" />
+                        </TableCell>
+                        <TableCell align="center">{row.product.name}</TableCell>
+                        <TableCell align="center">{row.product.price} ₺</TableCell>
+                        <TableCell align="center">{row.product.code}</TableCell>
+                        <TableCell align="center">{row.product.description}</TableCell>
+                        <TableCell align="center">{row.status}</TableCell>
+                        <TableCell align="center">{row.checkoutType}</TableCell>
+                      </TableRow>
+                    </TableBody>
+                  )}
+              </Table>
+            </Box>
+          </Collapse>
+        </TableCell>
+      </TableRow>
+    </React.Fragment>
+  );
+}
+
+Row.propTypes = {
+  row: PropTypes.shape({
+    calories: PropTypes.number.isRequired,
+    carbs: PropTypes.number.isRequired,
+    fat: PropTypes.number.isRequired,
+    history: PropTypes.arrayOf(
+      PropTypes.shape({
+        amount: PropTypes.number.isRequired,
+        customerId: PropTypes.string.isRequired,
+        date: PropTypes.string.isRequired,
+      }),
+    ).isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    protein: PropTypes.number.isRequired,
+  }).isRequired,
+};
+
+
+export default Order;

@@ -43,6 +43,34 @@ class OrderService {
 
         });
     }
+
+    static async changeStatus(body) {
+        return await Axios.post(`${config.ip}/changeStatus?access_token=${localStorage.getItem(
+            "access_token"
+            )}&token_type=${localStorage.getItem("token_type")}`, body)
+        .then(response => {
+            if (response.status === 200) {
+                return response.data;
+            }
+        })
+        .catch(error => {
+            return false;
+        });
+    }
+
+    static async order(body) {
+        return await Axios.post(`${config.ip}/payment?access_token=${localStorage.getItem(
+            "access_token"
+            )}&token_type=${localStorage.getItem("token_type")}`, body)
+        .then(response => {
+            if (response.status === 200) {
+                return response.data;
+            }
+        })
+        .catch(error => {
+            return error;
+        });
+    }
 }
 
 export default OrderService;

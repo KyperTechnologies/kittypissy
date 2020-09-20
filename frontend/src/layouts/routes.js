@@ -23,9 +23,11 @@ import ShopIcon from '@material-ui/icons/Shop';
 import Person from "@material-ui/icons/Person";
 // core components/views for Admin layout
 import ProductPage from "../views/Components/Sections/SectionProducts";
+import ContactPage from "../views/TableList/Contact";
 import UserProfile from "../views/UserProfile/UserProfile";
 import Order from "../views/TableList/Order";
 import Cart from "../views/TableList/Cart";
+import MailIcon from '@material-ui/icons/Mail';
 
 // core components/views for RTL layout
 
@@ -56,6 +58,13 @@ const dashboardRoutes = [
     name: "Sepetim",
     icon: ShoppingCart,
     component: Cart,
+    layout: "/dashboard"
+  },
+  {
+    path: "/iletisim",
+    name: "Iletisim",
+    icon: MailIcon,
+    component: ContactPage,
     layout: "/dashboard"
   },
   {

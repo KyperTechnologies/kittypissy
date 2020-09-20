@@ -115,7 +115,7 @@ export default function SectionDownload() {
             <i className={classes.socials + " fab fa-github"} /> Star
           </Button>
         </div>  */}
-
+          <div className={styleModule.line}></div>
       </div>
     </div>
   );

@@ -32,6 +32,12 @@ public class UserInfo {
 	
 	private String adress;
 	
+	private String country;
+	
+	private String zipcode;
+	
+	private String idendityNo;
+	
 	private String role;
 	
 	public String getSurName() {
@@ -96,6 +102,30 @@ public class UserInfo {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getZipcode() {
+		return zipcode;
+	}
+
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
+	}
+
+	public String getIdendityNo() {
+		return idendityNo;
+	}
+
+	public void setIdendityNo(String idendityNo) {
+		this.idendityNo = idendityNo;
 	}
 	
 }

@@ -32,6 +32,12 @@ public class ProductController {
 		return new ResponseEntity<>(productList, HttpStatus.OK);	
 	}
 	
+	@GetMapping("/getPreviewProducts")
+	public Object getPreviewProducts(@RequestHeader HttpHeaders requestHeaders) {
+		List<ProductInfo> productList = productService.getPreviewProducts();
+		return new ResponseEntity<>(productList, HttpStatus.OK);	
+	}
+	
 	@GetMapping("/getProductById")
 	public Object getProductById(@RequestHeader HttpHeaders requestHeaders, @RequestParam Integer productId) {
 		ProductInfo product = productService.getProductById(productId);

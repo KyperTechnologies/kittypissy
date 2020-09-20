@@ -32,12 +32,15 @@ public class UserService {
 		return userRepository.save(userInfo);
 	}
 	
-	public UserInfo updateUser(UserInfo userInfo, String email, String name, String surName, String phone, String adress) {
+	public UserInfo updateUser(UserInfo userInfo, String email, String name, String surName, String phone, String adress, String zipcode, String country, String idendityNo) {
 		userInfo.setEmail(email);
 		userInfo.setName(name);
 		userInfo.setSurName(surName);
 		userInfo.setPhone(phone);
 		userInfo.setAdress(adress);
+		userInfo.setZipcode(zipcode);
+		userInfo.setCountry(country);
+		userInfo.setIdendityNo(idendityNo);
 		return userRepository.save(userInfo);
 	}
 	
