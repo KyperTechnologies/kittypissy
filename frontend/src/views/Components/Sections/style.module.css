@@ -1,5 +1,19 @@
-@import url(//db.onlinewebfonts.com/c/f8ca41a58ce597893dd038124df00724?family=DINSchrift);
-@import url(//db.onlinewebfonts.com/c/76e8830038ab225cdb852f902d207c72?family=DINNeuzeitGroteskLTW01-Lt);
+@font-face {font-family: "DINSchrift";
+    src: url("https://db.onlinewebfonts.com/t/f8ca41a58ce597893dd038124df00724.eot"); /* IE9*/
+    src: url("https://db.onlinewebfonts.com/t/f8ca41a58ce597893dd038124df00724.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("https://db.onlinewebfonts.com/t/f8ca41a58ce597893dd038124df00724.woff2") format("woff2"), /* chrome firefox */
+    url("https://db.onlinewebfonts.com/t/f8ca41a58ce597893dd038124df00724.woff") format("woff"), /* chrome firefox */
+    url("https://db.onlinewebfonts.com/t/f8ca41a58ce597893dd038124df00724.ttf") format("truetype"), /* chrome firefox opera Safari, Android, iOS 4.2+*/
+    url("https://db.onlinewebfonts.com/t/f8ca41a58ce597893dd038124df00724.svg#DINSchrift") format("svg"); /* iOS 4.1- */
+}
+@font-face {font-family: "DINNeuzeitGroteskLTW01-Lt";
+    src: url("https://db.onlinewebfonts.com/t/76e8830038ab225cdb852f902d207c72.eot"); /* IE9*/
+    src: url("https://db.onlinewebfonts.com/t/76e8830038ab225cdb852f902d207c72.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("https://db.onlinewebfonts.com/t/76e8830038ab225cdb852f902d207c72.woff2") format("woff2"), /* chrome firefox */
+    url("https://db.onlinewebfonts.com/t/76e8830038ab225cdb852f902d207c72.woff") format("woff"), /* chrome firefox */
+    url("https://db.onlinewebfonts.com/t/76e8830038ab225cdb852f902d207c72.ttf") format("truetype"), /* chrome firefox opera Safari, Android, iOS 4.2+*/
+    url("https://db.onlinewebfonts.com/t/76e8830038ab225cdb852f902d207c72.svg#DINNeuzeitGroteskLTW01-Lt") format("svg"); /* iOS 4.1- */
+}
 .title {
  font-family:"DINSchrift";
 }
@@ -36,6 +50,22 @@
     margin-right: 450px;
     margin-top: 80px;
     height: 0;
+}
+
+.line3 {
+  border: 1px solid #fcd032;
+  margin-left: 150px;
+  margin-right: 150px;
+  margin-top: 20px;
+  height: 0;
+}
+
+.line4 {
+  border: 1px solid #fcd032;
+  margin-left: 115px;
+  margin-right: 115px;
+  margin-top: 20px;
+  height: 0;
 }
 
 .line2 {
@@ -76,6 +106,8 @@
   }
   .navLink {
       color:white;
+      font-size: 0.875rem;
+      line-height: 1.333333;
   }
   .navLink:focus,
   .navLink:hover,

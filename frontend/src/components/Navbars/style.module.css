@@ -1,4 +1,11 @@
-@import url(//db.onlinewebfonts.com/c/f8ca41a58ce597893dd038124df00724?family=DINSchrift);
+@font-face {font-family: "DINSchrift";
+    src: url("https://db.onlinewebfonts.com/t/f8ca41a58ce597893dd038124df00724.eot"); /* IE9*/
+    src: url("https://db.onlinewebfonts.com/t/f8ca41a58ce597893dd038124df00724.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("https://db.onlinewebfonts.com/t/f8ca41a58ce597893dd038124df00724.woff2") format("woff2"), /* chrome firefox */
+    url("https://db.onlinewebfonts.com/t/f8ca41a58ce597893dd038124df00724.woff") format("woff"), /* chrome firefox */
+    url("https://db.onlinewebfonts.com/t/f8ca41a58ce597893dd038124df00724.ttf") format("truetype"), /* chrome firefox opera Safari, Android, iOS 4.2+*/
+    url("https://db.onlinewebfonts.com/t/f8ca41a58ce597893dd038124df00724.svg#DINSchrift") format("svg"); /* iOS 4.1- */
+}
 
 .title{
  font-family:"DINSchrift";

@@ -4,6 +4,8 @@ import {
   Input,
   Select,
   Button,
+  message,
+  Alert
 } from 'antd';
 import { makeStyles } from "@material-ui/core/styles";
 import GridContainer from "../../../components/Grid/GridContainer.js";
@@ -12,6 +14,7 @@ import Card from "../../../components/Card/Card.js";
 import CardBody from "../../../components/Card/CardBody.js";
 import styles from "../../../assets/jss/material-kit-react/views/componentsSections/loginStyle.js";
 import styleModule from "./style.module.css";
+import MailService from "../../../service/MailService";
 
 const useStyles = makeStyles(styles);
 const { Option } = Select;
@@ -28,9 +31,28 @@ const prefixSelector = (
 export default function SectionLogin() {
   const classes = useStyles();
 
-  const onFinish = async (values) => {   
-    console.log(values.user);
-  };
+  const onFinish = async (values) => {
+    console.log(values);
+    const jsonBody = {
+      email: values.mail.email,
+      introduction: values.mail.introduction,
+      name: values.mail.name,
+      phone: values.mail.phone,
+      subject: values.mail.subject
+    }
+    const response = await MailService.sendMail(jsonBody);
+    if (response) {
+      message.success({
+        content: "Mail gonderildi!",
+        style: { marginTop: "100px" },
+      });
+    } else {
+      message.error({
+        content: "Mail gonderme basarisiz!",
+        style: { marginTop: "100px" },
+      });
+    }
+  }
   return (
     <div className={classes.section}>
       <div className={classes.container}>
@@ -47,11 +69,11 @@ export default function SectionLogin() {
                 <p className={styleModule.title4}>Bugday Pazari Mahallesi Esentepe Caddesi Cankiri, Merkez</p>
                 <Form name="nest-messages" onFinish={onFinish}>
                   <Form.Item
-                    name={['user', 'name']}
+                    name={['mail', 'name']}
                     rules={[
                       {
                         required: true,
-                        message: "Isim girilmesi zorunludur"
+                        message: <Alert style={{ marginTop: "10px", marginBottom: "10px" }} message="Isim girilmesi zorunludur" type="error" />
                       },
                     ]}
 
@@ -59,44 +81,44 @@ export default function SectionLogin() {
                     <Input placeholder="Isim" />
                   </Form.Item>
                   <Form.Item
-                    name={['user', 'email']}
+                    name={['mail', 'email']}
                     rules={[
                       {
                         required: true,
-                        message: "Email girilmesi zorunludur"
+                        message: <Alert style={{ marginTop: "10px", marginBottom: "10px" }} message="Email girilmesi zorunludur" type="error" />
                       },
                       {
                         type: 'email',
-                        message: "Lutfen gecerli bir Email adresi giriniz"
+                        message: <Alert style={{ marginTop: "10px", marginBottom: "10px" }} message="Lutfen gecerli bir Email adresi giriniz" type="error" />
                       },
                     ]}
                   >
                     <Input placeholder="Email" />
                   </Form.Item>
                   <Form.Item
-                    name={['user', 'phone']}
-                    rules={[{ required: true, message: "Telefon girilmesi zorunludur" }, { pattern: "^[0-9]+$", message: "Lutfen gecerli bir Telefon giriniz" }]}
+                    name={['mail', 'phone']}
+                    rules={[{ required: true, message: <Alert style={{ marginTop: "10px", marginBottom: "10px" }} message="Telefon girilmesi zorunludur" type="error" /> }, { pattern: "^[0-9]+$", message: <Alert style={{ marginTop: "10px", marginBottom: "10px" }} message="Lutfen gecerli bir Telefon giriniz" type="error" /> }]}
                   >
                     <Input placeholder="Telefon" addonBefore={prefixSelector} style={{ width: '100%' }} />
                   </Form.Item>
                   <Form.Item
-                    name={['user', 'subject']}
+                    name={['mail', 'subject']}
                     rules={[
                       {
                         required: true,
-                        message: "Konu girilmesi zorunludur"
+                        message: <Alert style={{ marginTop: "10px", marginBottom: "10px" }} message="Konu girilmesi zorunludur" type="error" />
                       },
                     ]}
 
                   >
                     <Input placeholder="Konu" />
                   </Form.Item>
-                  <Form.Item name={['user', 'introduction']} rules={[{ required: true, message: "Mesaj girilmesi zorunludur" }]}
+                  <Form.Item name={['mail', 'introduction']} rules={[{ required: true, message: <Alert style={{ marginTop: "10px", marginBottom: "10px" }} message="Mesaj girilmesi zorunludur" type="error" /> }]}
                   >
                     <Input.TextArea placeholder="Mesajinizi yaziniz..." />
                   </Form.Item>
                   <Form.Item style={{ textAlign: "right" }}>
-                    <Button size="large" htmlType="submit">
+                    <Button htmlType="submit">
                       Gonder
                       </Button>
                   </Form.Item>

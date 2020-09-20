@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Button from "../../../components/CustomButtons/Button.js";
 import GridContainer from "../../../components/Grid/GridContainer.js";
-import ListGroup from 'react-bootstrap/ListGroup';
 import ListGroupItem from 'react-bootstrap/ListGroupItem'
 import ProductService from "../../../service/ProductService";
 import UserService from "../../../service/UserService";
@@ -36,6 +35,27 @@ class SectionProducts extends Component {
 
   componentDidMount() {
     this.createProductList();
+  }
+
+  description = (element) => {
+    Modal.info({
+      icon: "",
+      okText: "Kapat",
+      okType: "danger",
+      centered: "true",
+      content: (
+        <Row>
+          <Col md={4}>
+            <p className={styleModule.title3} style={{fontSize: "20px", textAlign: "left"}}>Urun Adi:</p>
+            <p className={styleModule.title3} style={{fontSize: "20px", textAlign: "left"}}>Aciklama:</p>
+          </Col>
+          <Col md={8}>
+            <p className={styleModule.title4} style={{ fontSize: "15px", textAlign: "left", marginTop: "14px" }}>{element.name}</p>
+            <p className={styleModule.title4} style={{ fontSize: "15px", textAlign: "left", marginTop: "-1px" }}>{element.description}</p>
+          </Col>
+        </Row>
+      )
+    });
   }
 
   order = (product) => {
@@ -152,7 +172,7 @@ class SectionProducts extends Component {
                   </GridContainer>
                 </CardBody>
                 <CardFooter style={{ justifyContent: "center" }}>
-                  <Button type="submit" color="twitter">Guncelle</Button>
+                  <Button type="submit" color="warning">Guncelle</Button>
                 </CardFooter>
               </Card>
             </Form>
@@ -274,7 +294,7 @@ class SectionProducts extends Component {
                   </GridContainer>
                 </CardBody>
                 <CardFooter style={{ justifyContent: "center" }}>
-                  <Button type="submit" color="twitter">Guncelle</Button>
+                  <Button type="submit" color="warning">Guncelle</Button>
                 </CardFooter>
               </Card>
             </Form>
@@ -292,36 +312,37 @@ class SectionProducts extends Component {
     productList.forEach(element => {
       column.push(
         <Col md={4}>
-          <Card className={styleModule.card}>
-            <Card.Img variant="top" src={`data:image/jpeg;base64,${element.image}`} />
+          <Card>
+            <Card.Img style={{ width: "270px", placeSelf: "center" }} variant="top" src={`data:image/jpeg;base64,${element.image}`} />
             {role === "Admin" ? (
               <Card.Body>
-                <Button variant="contained" color="facebook" onClick={() => this.updateProductImage(element.id)}>
+                <Button variant="contained" color="github" onClick={() => this.updateProductImage(element.id)}>
                   Urun Resmi guncelle
                 </Button>
               </Card.Body>) : (null)}
             <Card.Body>
-              <Card.Title className={styleModule.title} style={{ fontSize: "18px", textAlign: "left", marginBottom: "-85px" }}>{String(element.name)}</Card.Title>
+              <Card.Title className={styleModule.title} style={{ fontSize: "18px", textAlign: "center", marginBottom: "-85px" }}>{String(element.name)}</Card.Title>
             </Card.Body>
+            <div className={styleModule.line3} />
             <Card.Title className="list-group-flush">
-              <ListGroupItem className={styleModule.title4} style={{ fontSize: "35px", textAlign: "left", marginBottom: "-40px" }}>{element.price} ₺</ListGroupItem>
+              <ListGroupItem className={styleModule.title4} style={{ fontSize: "30px", textAlign: "center", marginBottom: "-40px" }}>{element.price} ₺</ListGroupItem>
             </Card.Title>
-            <Card.Body>
+            <Card.Body style={{ marginTop: "10px" }}>
               {role === "User" ? (
-              <Row><Col md={5}><Button variant="contained" color="transparent" onClick={() => this.order(element.id)}>
-                     Detaylar
-                     </Button> 
-                    </Col>
-                    <Col md={5}><Button variant="contained" color="google" onClick={() => this.order(element)}>
-                     Sepete ekle
+                <Row><Col md={5}><Button variant="contained" color="transparent" onClick={() => this.description(element)}>
+                  Detaylar
                      </Button>
-                    </Col></Row>
+                </Col>
+                  <Col md={5}><Button variant="contained" color="github" onClick={() => this.order(element)}>
+                    Sepete ekle
+                     </Button>
+                  </Col></Row>
               ) : (
                   <div>
-                    <Button variant="contained" color="google" onClick={() => this.deleteProduct(element.id)}>
+                    <Button variant="contained" color="danger" onClick={() => this.deleteProduct(element.id)}>
                       Urunu Sil
                       </Button>
-                    <Button variant="contained" color="twitter" onClick={() => this.updateProductModal(element.id)}>
+                    <Button variant="contained" color="warning" onClick={() => this.updateProductModal(element.id)}>
                       Guncelle
                       </Button>
                   </div>

@@ -20,12 +20,15 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 	public void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/login").permitAll();
 		http.authorizeRequests().antMatchers("/register").permitAll();
-		
+		http.authorizeRequests().antMatchers("/getPreviewProducts").permitAll();
+		http.authorizeRequests().antMatchers("/sendMail").permitAll();
+
 		http.authorizeRequests().antMatchers("/getOrdersByEmail").hasAnyRole("User");
 		http.authorizeRequests().antMatchers("/getAllOrders").hasAnyRole("Admin");
 		http.authorizeRequests().antMatchers("/addProduct").hasAnyRole("Admin");
 		http.authorizeRequests().antMatchers("/deleteProduct").hasAnyRole("Admin");
 		http.authorizeRequests().antMatchers("/updateProduct").hasAnyRole("Admin");
+		http.authorizeRequests().antMatchers("/changeStatus").hasAnyRole("Admin");
 		
 		http.antMatcher("/**").authorizeRequests().anyRequest().authenticated();
 	}

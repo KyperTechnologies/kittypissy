@@ -30,6 +30,17 @@ public class ProductService {
 		return productList;
 	}
 	
+	public List<ProductInfo> getPreviewProducts() {
+		Iterable<ProductInfo> productIter = productRepository.findAll();
+		List<ProductInfo> productList = new ArrayList<ProductInfo>();
+		productIter.forEach(product -> {
+			if (productList.size() < 4) {
+				productList.add(product);
+			}
+		});
+		return productList;
+	}
+	
 	public ProductInfo getProductByCode(String code) {
 		return productRepository.findByCode(code);
 	}

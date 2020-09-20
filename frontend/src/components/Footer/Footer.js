@@ -23,7 +23,7 @@ export default function Footer(props) {
     <footer className={footerClasses}>
       <div className={classes.container}>
         <div className={classes.left}>
-          <List className={classes.list}>
+          {/*<List className={classes.list}>
             <ListItem className={classes.inlineBlock}>
               <a
                 href="https://www.creative-tim.com/presentation?ref=mkr-footer"
@@ -32,17 +32,12 @@ export default function Footer(props) {
                 About us
               </a>
             </ListItem>
-          </List>
+          </List>*/}
         </div>
         <div className={classes.right}>
-          &copy; {1900 + new Date().getYear()} , made with{" "}
-          <Favorite className={classes.icon} /> by{" "}
-          <a
-            href="https://www.instagram.com/kyperbeast/"
-            className={aClasses}
-          >
+          &copy; {1900 + new Date().getYear()} , made by{" "}
             KyperTech
-          </a>{" "}
+          {" "}
           for a better web.
         </div>
       </div>
