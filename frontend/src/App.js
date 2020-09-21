@@ -7,6 +7,7 @@ import SignUp from "./views/Components/SignUp";
 import SignIn from "./views/Components/SignIn";
 import Admin from "./layouts/Admin";
 import signupConfirmed from "./views/Components/signupConfirmed";
+import rPwRequest from "./views/Components/rPwRequest";
 
 
 var hist = createBrowserHistory();
@@ -22,6 +23,7 @@ function App() {
           {/*<Route path="/urunler" exact component={ShopPage} />*/}
           <Route path="/" exact component={MainPage} />
           <Route path="/confirmed" exact component={signupConfirmed} />
+          <Route path="/rPwRequest" exact component={rPwRequest} />
         </Switch>
       </Router>
     </div>

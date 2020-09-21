@@ -166,7 +166,7 @@ export default function SignIn(props) {
                         </Button>
                     <Grid container spacing={0} >
                         <Grid md={6} style={{textAlign: "left"}}>
-                            <Link href="#" variant="body2">
+                            <Link href="/rPwRequest" variant="body2">
                                 Sifrenizi mi unuttunuz?
                              </Link>
                         </Grid>
