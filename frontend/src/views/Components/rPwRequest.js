@@ -19,15 +19,6 @@ import Header from "../../components/Header/Header.js";
 import HeaderLinks from "../../components/Header/HeaderLinks.js";
 
 const useStyles = makeStyles(styles);
-const { Option } = Select;
-
-const prefixSelector = (
-  <Form.Item name="prefix" noStyle>
-    <Select defaultValue={90} style={{ width: 70 }}>
-      <Option value="90">+90</Option>
-    </Select>
-  </Form.Item>
-);
 
 
 export default function SectionLogin(props) {
@@ -38,10 +29,6 @@ export default function SectionLogin(props) {
     console.log(values);
     const jsonBody = {
       email: values.mail.email,
-      introduction: values.mail.introduction,
-      name: values.mail.name,
-      phone: values.mail.phone,
-      subject: values.mail.subject
     }
     const response = await MailService.sendMail(jsonBody);
     if (response) {
@@ -77,8 +64,8 @@ export default function SectionLogin(props) {
             <Card>
               <CardBody>
                 <h4 className={styleModule.title3}>SIFRENIZI MI UNUTTUNUZ?</h4>
-                <p>Lütfen aşağıdaki bilgileri eksiksiz giriniz.</p>
-                <span>Eğer bilgilerden emin değilseniz hemen bizimle iletişime geçin!</span>
+                <p>Lütfen kayıt olduğunuzu düşündüğünüz E-mail adresini giriniz.</p>
+                <span>Eğer E-mail adresinizden emin değilseniz hemen bizimle iletişime geçin!</span>
                 <Form name="nest-messages" onFinish={onFinish}>
                   <Form.Item
                     name={['mail', 'email']}
@@ -94,12 +81,6 @@ export default function SectionLogin(props) {
                     ]}
                   >
                     <Input placeholder="Email" />
-                  </Form.Item>
-                  <Form.Item
-                    name={['mail', 'phone']}
-                    rules={[{ required: true, message: <Alert style={{ marginTop: "10px", marginBottom: "10px" }} message="Telefon girilmesi zorunludur" type="error" /> }, { pattern: "^[0-9]+$", message: <Alert style={{ marginTop: "10px", marginBottom: "10px" }} message="Lutfen gecerli bir Telefon giriniz" type="error" /> }]}
-                  >
-                    <Input placeholder="Telefon" addonBefore={prefixSelector} style={{ width: '100%' }} />
                   </Form.Item>
                   <Form.Item>
                     <Button htmlType="submit" >
